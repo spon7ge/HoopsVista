@@ -1,0 +1,32 @@
+## To-Do list
+- player game logs
+    - for the last two seasons '2022-23' and '2023-24'
+    - future proof it, be able to update it with most recent games(make a function to update players and year)
+    - Basic boxscore stats
+- player adv stats
+    - PER, USG%, TS%, eFG%, WS, BPM, ORTG, DRTG
+- contextual and situational stats
+    - Home/Away
+    - Rest days
+    - Game Pace
+    - Team Role/ Rotation
+- Recent Performance Trend
+    - Last 5-10 Game Averages
+    - Consistency Metrics
+    - Injury Reports
+- Team Context
+    - Team offensive rating/ Team Defensive rating
+    - Team Pace
+
+Example of Important Features for Predicting Points:
+Historical Points per Game (PPG): A player's scoring average in previous games.
+Field Goal Attempts (FGA) and Field Goal Percentage (FG%): Higher attempts and better efficiency usually lead to more points.
+Usage Rate (USG%): Indicates the player's involvement in the offense.
+Three-Point Attempts (3PA) and Three-Point Percentage (3P%): Essential for players who rely on three-point shooting.
+Free Throw Attempts (FTA) and Free Throw Percentage (FT%): Indicates how often a player gets to the line and how efficiently they score there.
+Opponent Defense Rating: How strong the opponent's defense is, especially against the player's position.
+
+
+Additional Considerations
+Correlation Analysis: Perform a correlation analysis between these stats and the target variable (e.g., points, rebounds) to identify which features have the strongest relationship with the outcome you're predicting.
+Feature Selection and Importance: Use machine learning techniques like feature importance in decision trees or SHAP values in more complex models to determine the most predictive features.
