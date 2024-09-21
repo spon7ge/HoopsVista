@@ -8,3 +8,7 @@
 ### Machine Learning Models: Implements multiple machine learning algorithms to predict player outcomes (e.g., points, rebounds, assists).
 ### Evaluation: Compares model performance using metrics such as Mean Absolute Error (MAE) and R-squared values.
 ### Prop Finder: Identifies favorable betting opportunities based on predictions compared to sportsbook lines.
+## Models Used
+### - XGBoost: A powerful gradient boosting algorithm suitable for structured/tabular data.
+### - Random Forest: A versatile ensemble method that is robust to overfitting and handles large datasets well.
+### - Linear Regression: A simple yet effective model for making predictions on numerical data.
