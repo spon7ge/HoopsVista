@@ -1,3 +1,5 @@
+import pandas as pd
+
 def calculate_pts_last_5(player_data, player_id_col='PLAYER_ID', pts_col='PTS'):
     """
     Calculates the rolling average of the last 5 games' points for each player.
@@ -58,25 +60,17 @@ def add_home_away_indicator(player_data, matchup_col='MATCHUP'):
     player_data['HomeGame'] = player_data[matchup_col].apply(lambda x: 1 if 'vs.' in x else 0)
     return player_data
 
-def calculate_days_of_rest(player_data, player_id_col='PLAYER_ID', game_date_col='GAME_DATE'):
-    """
-    Calculates the days of rest between games for each player.
-    
-    Parameters:
-    player_data (pd.DataFrame): The player data containing player IDs and game dates.
-    player_id_col (str): The column name of the player IDs (default is 'PLAYER_ID').
-    game_date_col (str): The column name of the game dates (default is 'GAME_DATE').
-    
-    Returns:
-    pd.DataFrame: Updated DataFrame with 'PREV_GAME_DATE' and 'DAYS_OF_REST' columns.
-    """
-    # Add previous game date column
-    player_data['PREV_GAME_DATE'] = player_data.groupby(player_id_col)[game_date_col].shift(1)
-    
-    # Calculate days of rest
-    player_data['DAYS_OF_REST'] = (player_data[game_date_col] - player_data['PREV_GAME_DATE']).dt.days.fillna(0)
-    
-    return player_data
+#Get days of rest in between games
+def calculate_days_of_rest(df, player_id_col='PLAYER_ID', game_date_col='GAME_DATE'):
+    df[game_date_col] = pd.to_datetime(df[game_date_col], format='%Y-%m-%d')
+
+    # Sort the DataFrame by player ID and game date
+    df = df.sort_values(by=[player_id_col, game_date_col])
+
+    # Calculate the difference in days between consecutive games for each player
+    df['DAYS_OF_REST'] = df.groupby(player_id_col)[game_date_col].diff().dt.days
+
+    return df
 
 def add_pace_to_player_data(player_data, teams_df):
     # Create new columns in player_data to store the pace stats
@@ -139,6 +133,58 @@ def add_opp_team_stats(player_data, teams_df):
         player_data.loc[idx, 'OPP_REB'] = opp_team['OPP_REB']
     
     return player_data
+
+# Adds Player Efficiency Rating to each game they played in 
+def add_player_PER(player_data):
+    # Create a new column in player_data to store the PER
+    player_data['PER'] = None
+    
+    # Constants used in PER calculation
+    uPER_constants = {
+        'FG': 85.910,  
+        'FT': 53.897,   
+        '3P': 51.757,   
+        'ORB': 39.190,  
+        'DRB': 39.190, 
+        'AST': 34.677,  
+        'STL': 53.897, 
+        'BLK': 53.897, 
+        'TO': 17.174,   
+        'PF': 20.091,   
+    }
+    
+    # Iterate through each row in the player_data
+    for idx, player in player_data.iterrows():
+        # Calculate the various components for uPER
+        FG_value = uPER_constants['FG'] * player['FGM']
+        FT_value = uPER_constants['FT'] * player['FTM']
+        _3P_value = uPER_constants['3P'] * player['FG3M']
+        ORB_value = uPER_constants['ORB'] * player['OREB']
+        DRB_value = uPER_constants['DRB'] * player['DREB']
+        AST_value = uPER_constants['AST'] * player['AST']
+        STL_value = uPER_constants['STL'] * player['STL']
+        BLK_value = uPER_constants['BLK'] * player['BLK']
+        TO_value = uPER_constants['TO'] * player['TOV']
+        PF_value = uPER_constants['PF'] * player['PF']
+        
+        # Calculate uPER (unadjusted PER)
+        uPER = (FG_value + FT_value + _3P_value + ORB_value + DRB_value + 
+                AST_value + STL_value + BLK_value - TO_value - PF_value)
+        
+        # Calculate the player's minutes
+        minutes = player['MIN']
+        
+        # Calculate final PER
+        if minutes > 0:  # Avoid division by zero
+            PER = uPER / minutes
+        else:
+            PER = 0
+        
+        # Assign the calculated PER to the player_data DataFrame
+        player_data.loc[idx, 'PER'] = PER
+    
+    return player_data
+
 
 
 

@@ -1,6 +1,6 @@
 import time
 import pandas as pd
-from nba_api.stats.endpoints import commonplayerinfo,playergamelog,boxscoreadvancedv2, leaguegamelog
+from nba_api.stats.endpoints import commonplayerinfo,playergamelog,boxscoreadvancedv2, leaguegamelog, teamgamelog
 from nba_api.stats.static import *
 
 def get_player_ids_for_season(season='2022-23', output_csv='players_season.csv'):
@@ -115,10 +115,10 @@ def merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df,output_cs
 # game_logs_df = fetch_all_player_game_logs(player_ids, season='2022-23', sleep_time=0.5)
 
 # # Get unique game IDs
-# game_ids = get_unique_game_ids(game_logs_df)
+    # game_ids = get_unique_game_ids(game_logs_df)
 
-# # Fetch all advanced stats
-# advanced_stats_df = fetch_all_advanced_stats(game_ids, sleep_time=0.5, retries=3)
+    # # Fetch all advanced stats
+    # advanced_stats_df = fetch_all_advanced_stats(game_ids, sleep_time=0.5, retries=3)
 
 # # Merge game logs and advanced stats
 # merged_23_df = merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df)
@@ -129,18 +129,24 @@ def get_all_teams_gamelogs(season='2022-23'):
     team_names = [team['full_name'] for team in teams.get_teams()] 
     team_gamelogs_all = []
 
-    # Progress bar to track the downloading process
-    for i, team_id in tqdm(enumerate(team_ids), total=len(team_ids), desc="Downloading Team Game Logs"):
+    total_teams = len(team_ids)
+
+    # Simple counter to track the downloading process
+    for i, team_id in enumerate(team_ids):
         try:
+            print(f"Processing team {i+1}/{total_teams}: {team_names[i]}")
             team_gamelogs = teamgamelog.TeamGameLog(team_id=team_id, season=season).get_data_frames()[0]
             team_gamelogs_all.append(team_gamelogs)
         except Exception as e:
             print(f"Error downloading data for {team_names[i]}: {e}")
 
-    # Concatenate 
-    team_gamelogs_all_df = pd.concat(team_gamelogs_all, ignore_index=True)
-
-    return team_gamelogs_all_df
+    # Concatenate all the game logs into a single DataFrame
+    if team_gamelogs_all:
+        team_gamelogs_all_df = pd.concat(team_gamelogs_all, ignore_index=True)
+        return team_gamelogs_all_df
+    else:
+        print("No data was retrieved.")
+        return pd.DataFrame() 
 
 # Adds opponents DRTG, STL, BLK, and REB to each team for every game they played
 def add_opponent_stats(teams_df):
