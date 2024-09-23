@@ -1,8 +1,27 @@
 import pandas as pd
 
-def calculate_pts_last_5(player_data, player_id_col='PLAYER_ID', prop='PTS',games=5):
-    name = f"{prop}_LAST_{games}"
-    player_data['PTS_LAST_5'] = player_data.groupby(player_id_col)[pts_col].rolling(window=games).mean().reset_index(0, drop=True)
+def last_5_avg(player_data, player_id_col='PLAYER_ID', props=['PTS'], games=5, date_col='GAME_DATE'):
+    # If a single stat is passed, convert it to a list to keep the logic consistent
+    if isinstance(props, str):
+        props = [props]
+    
+    # Create a new column name based on the combined stats (e.g., PTS+AST)
+    combined_name = '+'.join(props)
+    rolling_col_name = f"{combined_name}_LAST_{games}"
+    
+    # Sort by player and date to ensure rolling works correctly
+    player_data = player_data.sort_values([player_id_col, date_col])
+    
+    # Calculate the rolling mean for the combined stat without adding the intermediate column
+    player_data[rolling_col_name] = (
+        player_data[props]
+        .sum(axis=1)  # Sum the selected properties
+        .groupby(player_data[player_id_col])  # Group by player ID
+        .rolling(window=games, min_periods=1)  # Apply rolling window
+        .mean()
+        .reset_index(level=0, drop=True)  # Reset index after rolling
+    )
+    
     return player_data
 
 def add_home_away_indicator(player_data, matchup_col='MATCHUP'):
@@ -78,33 +97,38 @@ def add_opp_team_stats(player_data, teams_df): # use the parameters, how they ar
         player_data.loc[idx, 'OPP_DRTG'] = opp_team['OPP_DRTG']
         player_data.loc[idx, 'OPP_STL'] = opp_team['OPP_STL']
         player_data.loc[idx, 'OPP_BLK'] = opp_team['OPP_BLK']
-        player_data.loc[idx, 'OPP_REB'] = opp_team['OPP_REB']
+        player_data.loc[idx, 'OPP_REB'] = opp_team['OPP_REB'] 
     
     return player_data
 
-def get_team_off_rating(player_data, teams_df):
+def add_off_rating(player_data, teams_df):
+    # Initialize the columns for TEAM_OFF_RATING and OPP_OFF_RATING
     player_data['TEAM_OFF_RATING'] = None
+    player_data['OPP_OFF_RATING'] = None
     
     # Iterate through each row in the player_data
     for idx, player in player_data.iterrows():
-        game_id = player['GAME_ID']  # Get the GAME_ID from player_data
+        game_id = player['GAME_ID']  # Get the Game_ID from player_data
         team_id = player['Team_ID']  # Get the Team_ID from player_data
         
         # Get the game data from teams_df corresponding to this game
         game_data = teams_df[teams_df['Game_ID'] == game_id]
         
-        # Ensure that the team data exists for the player's team
-        team_data = game_data[game_data['Team_ID'] == team_id]
+        # Make sure there are exactly 2 teams in the game
+        if len(game_data) != 2:
+            continue  # Skip if the game data doesn't have exactly 2 teams
         
-        # Check if we have exactly one matching team
-        if len(team_data) != 1:
-            continue  # Skip if the team data is not found uniquely
+        # Find the player's team and opponent team in the game data
+        if game_data.iloc[0]['Team_ID'] == team_id:
+            team_row = game_data.iloc[0]  # This is the player's team
+            opp_row = game_data.iloc[1]   # This is the opponent team
+        else:
+            team_row = game_data.iloc[1]  # This is the player's team
+            opp_row = game_data.iloc[0]   # This is the opponent team
         
-        # Get the TEAM_OFF_RATING from team_data
-        team_off_rating = team_data.iloc[0]['TEAM_OFF_RATING']
-        
-        # Assign the team's offensive rating to the player
-        player_data.loc[idx, 'TEAM_OFF_RATING'] = team_off_rating
+        # Assign the team's offensive rating and opponent's offensive rating to the player
+        player_data.loc[idx, 'TEAM_OFF_RATING'] = team_row['TEAM_OFF_RATING']  # Player's team's offensive rating
+        player_data.loc[idx, 'OPP_OFF_RATING'] = opp_row['TEAM_OFF_RATING']    # Opponent's offensive rating
     
     return player_data
 
