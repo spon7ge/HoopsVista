@@ -115,13 +115,13 @@ def merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df,output_cs
 # game_logs_df = fetch_all_player_game_logs(player_ids, season='2022-23', sleep_time=0.5)
 
 # # Get unique game IDs
-    # game_ids = get_unique_game_ids(game_logs_df)
+# game_ids = get_unique_game_ids(game_logs_df)
 
-    # # Fetch all advanced stats
-    # advanced_stats_df = fetch_all_advanced_stats(game_ids, sleep_time=0.5, retries=3)
+# # Fetch all advanced stats
+# advanced_stats_df = fetch_all_advanced_stats(game_ids, sleep_time=0.5, retries=3)
 
 # # Merge game logs and advanced stats
-# merged_23_df = merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df)
+# df = merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df)
 
 
 def get_all_teams_gamelogs(season='2022-23'):
@@ -185,7 +185,7 @@ def add_opponent_stats(teams_df):
     
     return teams_df
 
-def add_pace_stats(teams_df):
+def add_team_off_rating(teams_df):
     game_ids = teams_df['Game_ID'].unique()
     
     for i in game_ids:
@@ -193,8 +193,38 @@ def add_pace_stats(teams_df):
         game_data = teams_df[teams_df['Game_ID'] == i]
 
         if len(game_data) != 2:
-            continue  # Ensure there are exactly two teams in the game
+            continue 
+        
+        # Split into two teams based on the matchup
+        team_one = game_data.iloc[0]  # First team in the matchup
+        team_two = game_data.iloc[1]  # Second team in the matchup
 
+        # Calculate possessions for both teams
+        team_one_possessions = team_one['FGA'] + 0.44 * team_one['FTA'] - team_one['OREB'] + team_one['TOV']
+        team_two_possessions = team_two['FGA'] + 0.44 * team_two['FTA'] - team_two['OREB'] + team_two['TOV']
+
+        # Calculate team one's Offensive Rating (based on team one's own offensive stats)
+        team_one_off_rating = (team_one['PTS'] / team_one_possessions) * 100
+
+        # Calculate team two's Offensive Rating (based on team two's own offensive stats)
+        team_two_off_rating = (team_two['PTS'] / team_two_possessions) * 100
+
+        # Update teams_df with the calculated OFF_RATING values for both teams
+        teams_df.loc[game_data.index[0], 'TEAM_OFF_RATING'] = team_one_off_rating  # Team one's offensive rating
+        teams_df.loc[game_data.index[1], 'TEAM_OFF_RATING'] = team_two_off_rating  # Team two's offensive rating
+    
+    return teams_df
+
+
+#adds pace for team, the overall game and oppenents
+def add_pace_stats(teams_df):
+    game_ids = teams_df['Game_ID'].unique()
+    
+    for i in game_ids:
+        game_data = teams_df[teams_df['Game_ID'] == i]
+        if len(game_data) != 2:
+            continue 
+        
         # Split into two teams based on the matchup
         team_one = game_data.iloc[0]  # First team in the matchup
         team_two = game_data.iloc[1]  # Second team in the matchup
@@ -209,18 +239,21 @@ def add_pace_stats(teams_df):
         # Assume total game time is 48 minutes for NBA (could be adjusted for other leagues)
         game_pace = 48 * total_possessions / 48  # Total minutes is 48 for NBA regulation time
 
-        # Update the DataFrame with team-specific pace values
+        # Calculate pace for each team
         team_one_pace = 48 * team_one_possessions / 48
         team_two_pace = 48 * team_two_possessions / 48
 
-        # Update teams_df with the calculated pace values
+        # Update teams_df with the calculated team pace values
         teams_df.loc[game_data.index[0], 'TEAM_PACE'] = team_one_pace  # Update team one's pace
         teams_df.loc[game_data.index[1], 'TEAM_PACE'] = team_two_pace  # Update team two's pace
 
-        # Update the overall game pace for both teams
+        # Update teams_df with the overall game pace (same for both teams)
         teams_df.loc[game_data.index[0], 'GAME_PACE'] = game_pace  # Game pace (same for both teams)
         teams_df.loc[game_data.index[1], 'GAME_PACE'] = game_pace  # Game pace (same for both teams)
+
+        # Update teams_df with the opponent's pace
+        teams_df.loc[game_data.index[0], 'OPP_PACE'] = team_two_pace  # Opponent pace for team one is team two's pace
+        teams_df.loc[game_data.index[1], 'OPP_PACE'] = team_one_pace  # Opponent pace for team two is team one's pace
     
     return teams_df
-
 

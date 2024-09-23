@@ -1,81 +1,25 @@
 import pandas as pd
 
-def calculate_pts_last_5(player_data, player_id_col='PLAYER_ID', pts_col='PTS'):
-    """
-    Calculates the rolling average of the last 5 games' points for each player.
-    
-    Parameters:
-    player_data (pd.DataFrame): The player data containing player IDs and points.
-    player_id_col (str): The column name of the player IDs (default is 'PLAYER_ID').
-    pts_col (str): The column name of the points (default is 'PTS').
-    
-    Returns:
-    pd.DataFrame: Updated DataFrame with a 'PTS_LAST_5' column.
-    """
-    player_data['PTS_LAST_5'] = player_data.groupby(player_id_col)[pts_col].rolling(window=5).mean().reset_index(0, drop=True)
-    return player_data
-
-def calculate_pts_last_10(player_data, player_id_col='PLAYER_ID', pts_col='PTS'):
-    """
-    Calculates the rolling average of the last 5 games' points for each player.
-    
-    Parameters:
-    player_data (pd.DataFrame): The player data containing player IDs and points.
-    player_id_col (str): The column name of the player IDs (default is 'PLAYER_ID').
-    pts_col (str): The column name of the points (default is 'PTS').
-    
-    Returns:
-    pd.DataFrame: Updated DataFrame with a 'PTS_LAST_5' column.
-    """
-    player_data['PTS_LAST_10'] = player_data.groupby(player_id_col)[pts_col].rolling(window=10).mean().reset_index(0, drop=True)
-    return player_data
-
-
-def calculate_pts_last_15(player_data, player_id_col='PLAYER_ID', pts_col='PTS'):
-    """
-    Calculates the rolling average of the last 5 games' points for each player.
-    
-    Parameters:
-    player_data (pd.DataFrame): The player data containing player IDs and points.
-    player_id_col (str): The column name of the player IDs (default is 'PLAYER_ID').
-    pts_col (str): The column name of the points (default is 'PTS').
-    
-    Returns:
-    pd.DataFrame: Updated DataFrame with a 'PTS_LAST_5' column.
-    """
-    player_data['PTS_LAST_15'] = player_data.groupby(player_id_col)[pts_col].rolling(window=15).mean().reset_index(0, drop=True)
+def calculate_pts_last_5(player_data, player_id_col='PLAYER_ID', prop='PTS',games=5):
+    name = f"{prop}_LAST_{games}"
+    player_data['PTS_LAST_5'] = player_data.groupby(player_id_col)[pts_col].rolling(window=games).mean().reset_index(0, drop=True)
     return player_data
 
 def add_home_away_indicator(player_data, matchup_col='MATCHUP'):
-    """
-    Adds a Home/Away indicator based on the 'MATCHUP' column.
-    
-    Parameters:
-    player_data (pd.DataFrame): The player data containing the 'MATCHUP' column.
-    matchup_col (str): The column name of the matchups (default is 'MATCHUP').
-    
-    Returns:
-    pd.DataFrame: Updated DataFrame with a 'HomeGame' column.
-    """
     player_data['HomeGame'] = player_data[matchup_col].apply(lambda x: 1 if 'vs.' in x else 0)
     return player_data
 
 #Get days of rest in between games
 def calculate_days_of_rest(df, player_id_col='PLAYER_ID', game_date_col='GAME_DATE'):
     df[game_date_col] = pd.to_datetime(df[game_date_col], format='%Y-%m-%d')
-
-    # Sort the DataFrame by player ID and game date
     df = df.sort_values(by=[player_id_col, game_date_col])
-
-    # Calculate the difference in days between consecutive games for each player
     df['DAYS_OF_REST'] = df.groupby(player_id_col)[game_date_col].diff().dt.days
-
     return df
 
 def add_pace_to_player_data(player_data, teams_df):
-    # Create new columns in player_data to store the pace stats
     player_data['TEAM_PACE'] = None
     player_data['GAME_PACE'] = None
+    player_data['OPP_PACE'] = None
     
     # Iterate through each row in the player_data
     for idx, player in player_data.iterrows():
@@ -89,19 +33,23 @@ def add_pace_to_player_data(player_data, teams_df):
         if len(game_data) != 2:
             continue  # Skip if the game data doesn't have exactly 2 teams
         
-        # Find the player's team in the game data
+        # Find the player's team and opponent team in the game data
         if game_data.iloc[0]['Team_ID'] == team_id:
             team_row = game_data.iloc[0]  # This is the player's team
+            opp_row = game_data.iloc[1]   # This is the opponent team
         else:
             team_row = game_data.iloc[1]  # This is the player's team
+            opp_row = game_data.iloc[0]   # This is the opponent team
         
-        # Assign the team's pace and game pace to the player
-        player_data.loc[idx, 'TEAM_PACE'] = team_row['PACE']  # Player's team's pace
+        # Assign the team's pace, game pace, and opponent's pace to the player
+        player_data.loc[idx, 'TEAM_PACE'] = team_row['TEAM_PACE']  # Player's team's pace
         player_data.loc[idx, 'GAME_PACE'] = team_row['GAME_PACE']  # Overall game pace (same for both teams)
+        player_data.loc[idx, 'OPP_PACE'] = opp_row['TEAM_PACE']    # Opponent's pace
     
     return player_data
 
-def add_opp_team_stats(player_data, teams_df):
+# adds the opposing teams defensive stats
+def add_opp_team_stats(player_data, teams_df): # use the parameters, how they are 
     # Create new columns in player_data to store the opponent stats
     player_data['OPP_DRTG'] = None
     player_data['OPP_STL'] = None
@@ -131,6 +79,32 @@ def add_opp_team_stats(player_data, teams_df):
         player_data.loc[idx, 'OPP_STL'] = opp_team['OPP_STL']
         player_data.loc[idx, 'OPP_BLK'] = opp_team['OPP_BLK']
         player_data.loc[idx, 'OPP_REB'] = opp_team['OPP_REB']
+    
+    return player_data
+
+def get_team_off_rating(player_data, teams_df):
+    player_data['TEAM_OFF_RATING'] = None
+    
+    # Iterate through each row in the player_data
+    for idx, player in player_data.iterrows():
+        game_id = player['GAME_ID']  # Get the GAME_ID from player_data
+        team_id = player['Team_ID']  # Get the Team_ID from player_data
+        
+        # Get the game data from teams_df corresponding to this game
+        game_data = teams_df[teams_df['Game_ID'] == game_id]
+        
+        # Ensure that the team data exists for the player's team
+        team_data = game_data[game_data['Team_ID'] == team_id]
+        
+        # Check if we have exactly one matching team
+        if len(team_data) != 1:
+            continue  # Skip if the team data is not found uniquely
+        
+        # Get the TEAM_OFF_RATING from team_data
+        team_off_rating = team_data.iloc[0]['TEAM_OFF_RATING']
+        
+        # Assign the team's offensive rating to the player
+        player_data.loc[idx, 'TEAM_OFF_RATING'] = team_off_rating
     
     return player_data
 
@@ -184,6 +158,50 @@ def add_player_PER(player_data):
         player_data.loc[idx, 'PER'] = PER
     
     return player_data
+
+#looks for back-to-back games
+def add_back_to_back(player_data):
+    """
+    Adds a 'BACK_TO_BACK' column to the DataFrame. 
+    The value is 1 if the 'DAYS_OF_REST' is equal to 1, otherwise 0.
+    """
+    player_data['BACK_TO_BACK'] = player_data['DAYS_OF_REST'].apply(lambda x: 1 if x == 1 else 0)
+    return player_data
+
+
+def add_player_home_avg(player_data,prop):
+    avg_column_name = f'PLAYER_HOME_AVG_{prop}'
+    player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
+    lambda group: group[prop].where(group['HomeGame'] == 1).expanding().mean()
+    ).reset_index(level=0, drop=True)
+    return player_data
+
+def add_player_away_avg(player_data,prop):
+    avg_column_name = f'PLAYER_AWAY_AVG_{prop}'
+    player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
+    lambda group: group[prop].where(group['HomeGame'] == 0).expanding().mean()
+    ).reset_index(level=0, drop=True)
+    return player_data
+
+def add_usg_pct_last_5(player_data):
+    player_data['USG_PCT_LAST_5'] = player_data.groupby('PLAYER_ID')['USG_PCT'].transform(lambda x: x.rolling(window=5, min_periods=1).mean())
+    return player_data
+
+def add_usg_drtg_interaction(player_data):
+    player_data['USG_DRTG_INTERACTION'] = playe_data['USG_PCT'] * player_data['OPP_DRTG']
+    return player_data
+
+# def add_streak(player_data,prop):
+#     streak = f'{prop}_STREAK'
+#     player_data[streak] = player_data.groupby('PLAYER_ID')[prop].apply(lambda x: (x > x.mean()).cumsum())
+#     return player_data
+
+# teams_data['TEAM_AVG_OFF_RATING_LAST_5'] = teams_data.groupby('Team_ID')['OFF_RATING'].transform(lambda x: x.rolling(window=5, min_periods=1).mean())
+
+
+
+
+
 
 
 
