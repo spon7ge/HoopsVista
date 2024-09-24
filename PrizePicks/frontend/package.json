@@ -20,7 +20,7 @@
   "scripts": {
     "start": "concurrently \"npm run react\" \"npm run django\"",
     "react": "react-scripts start",
-    "django": "cd ../.. && python manage.py runserver",
+    "django": "cd ../../backend && python manage.py runserver",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
