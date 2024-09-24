@@ -4,17 +4,13 @@ from nba_api.stats.endpoints import commonplayerinfo,playergamelog,boxscoreadvan
 from nba_api.stats.static import *
 
 def get_player_ids_for_season(season='2022-23', output_csv='players_season.csv'):
-    # Use leaguegamelog to get all player game logs for the specified season
     game_log = leaguegamelog.LeagueGameLog(season=season, player_or_team_abbreviation='P')
     player_games_df = game_log.get_data_frames()[0]
 
-    # Extract unique player IDs and names
     player_ids_df = player_games_df[['PLAYER_ID', 'PLAYER_NAME']].drop_duplicates()
 
     # Sort the DataFrame by the last name
     player_ids_df = player_ids_df.sort_values(by='PLAYER_NAME', key=lambda x: x.str.split().str[-1])
-
-    # Reset the index after sorting
     player_ids_df.reset_index(drop=True, inplace=True)
 
     # Save the DataFrame to a CSV file
@@ -22,8 +18,6 @@ def get_player_ids_for_season(season='2022-23', output_csv='players_season.csv')
     print(f"Data successfully saved to '{output_csv}'")
     
     return player_ids_df
-
-import time
 
 #Get players game logs
 def fetch_all_player_game_logs(player_ids, season='2022-23', sleep_time=0.6):
