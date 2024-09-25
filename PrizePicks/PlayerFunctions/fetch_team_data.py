@@ -3,7 +3,7 @@ from nba_api.stats.endpoints import teamgamelog
 from nba_api.stats.static import teams
 
 #Grabs teams gamelogs to get team stats needed 
-def get_all_teams_gamelogs(season='2022-23'):
+def get_all_teams_gamelogs(season='2024-25'):
     team_ids = [team['id'] for team in teams.get_teams()]
     team_names = [team['full_name'] for team in teams.get_teams()] 
     team_gamelogs_all = []

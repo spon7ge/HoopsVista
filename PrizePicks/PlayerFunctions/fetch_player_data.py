@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 
 #grabs basic stats from gamelogs
-def fetch_and_process_player_stats(season='2023-24'):
+def fetch_and_process_player_stats(season='2024-25'):
     # Fetch all player game logs
     game_logs = leaguegamelog.LeagueGameLog(
         season=season, 
@@ -30,9 +30,9 @@ def fetch_and_process_player_stats(season='2023-24'):
     game_logs['OPPONENT'] = game_logs.apply(extract_opponent, axis=1)
     
     # Reorder columns
-    game_logs = game_logs[['PLAYER_NAME','PLAYER_ID','MATCHUP', 'TEAM','TEAM_ID', 'OPPONENT','GAME_ID', 'GAME_DATE','WL', 'PTS', 'AST', 'REB', 'MIN', 'FGM',
+    game_logs = game_logs[['PLAYER_NAME','PLAYER_ID','MATCHUP', 'TEAM','TEAM_ID', 'OPPONENT','GAME_ID', 'GAME_DATE','WL', 'MIN', 'PTS', 'AST', 'REB', 'FGM',
        'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT',
-       'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF','PLUS_MINUS','FANTASY_PTS']]
+       'OREB', 'DREB','STL', 'BLK', 'TOV', 'PF','PLUS_MINUS','FANTASY_PTS']]
     
     return game_logs
 
@@ -84,7 +84,7 @@ def merge_player_stats_with_advanced_data(player_data, advanced_stats):
 Using these functions you can save the files into the Data folder/csv_file with its correct folder, then we append it to the combined_seasons_df.csv to use for my model
 
 '''
-def save_player_stats_to_csv(data, season='2022-23'):
+def save_player_stats_to_csv(data, season='2024-25'):
     # Set the data directory directly to your desired path
     data_dir = '/Applications/Documents/PredictorProject/playerPredictor/PrizePicks/Data/csv_file/2025'
     os.makedirs(data_dir, exist_ok=True)  # Creates the directory if it doesn't exist
