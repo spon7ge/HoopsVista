@@ -1,8 +1,8 @@
-import time
 import pandas as pd
-from nba_api.stats.endpoints import commonplayerinfo,playergamelog,boxscoreadvancedv2, leaguegamelog, teamgamelog
-from nba_api.stats.static import *
+from nba_api.stats.endpoints import teamgamelog
+from nba_api.stats.static import teams
 
+<<<<<<< HEAD:PrizePicks/PlayerFunctions/player_team_functions.py
 def get_player_ids_for_season(season='2022-23', output_csv='players_season.csv'):
     game_log = leaguegamelog.LeagueGameLog(season=season, player_or_team_abbreviation='P')
     player_games_df = game_log.get_data_frames()[0]
@@ -119,6 +119,10 @@ def merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df,output_cs
 
 
 def get_all_teams_gamelogs(season='2022-23'):
+=======
+#Grabs teams gamelogs to get team stats needed 
+def get_all_teams_gamelogs(season='2024-25'):
+>>>>>>> 6b0eb9540a6b537d5b5fda52476781a33c2b65eb:PrizePicks/PlayerFunctions/fetch_team_data.py
     team_ids = [team['id'] for team in teams.get_teams()]
     team_names = [team['full_name'] for team in teams.get_teams()] 
     team_gamelogs_all = []
@@ -141,6 +145,11 @@ def get_all_teams_gamelogs(season='2022-23'):
     else:
         print("No data was retrieved.")
         return pd.DataFrame() 
+    
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+'''
+The features i will be using that involve using team data before i add it to the player
+'''
 
 # Adds opponents DRTG, STL, BLK, and REB to each team for every game they played
 def add_opponent_stats(teams_df):
@@ -179,6 +188,7 @@ def add_opponent_stats(teams_df):
     
     return teams_df
 
+#Adds the teams OFF_RATING and oponents OFF_RATING
 def add_team_off_rating(teams_df):
     game_ids = teams_df['Game_ID'].unique()
     
@@ -250,4 +260,3 @@ def add_pace_stats(teams_df):
         teams_df.loc[game_data.index[1], 'OPP_PACE'] = team_one_pace  # Opponent pace for team two is team one's pace
     
     return teams_df
-
