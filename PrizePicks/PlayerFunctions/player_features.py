@@ -91,14 +91,14 @@ def add_back_to_back(player_data):
     return player_data
 
 
-def add_player_home_avg(player_data,prop):
+def add_player_home_avg(player_data,prop):# needs tweaking, currently removing HOME_GAME from teh columns when i run it 
     avg_column_name = f'PLAYER_HOME_AVG_{prop}'
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
     lambda group: group[prop].where(group['HOME_GAME'] == 1).expanding().mean()
     ).reset_index(level=0, drop=True)
     return player_data
 
-def add_player_away_avg(player_data,prop):
+def add_player_away_avg(player_data,prop):# needs tweaking, currently removing HOME_GAME from teh columns when i run it 
     avg_column_name = f'PLAYER_AWAY_AVG_{prop}'
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
     lambda group: group[prop].where(group['HOME_GAME'] == 0).expanding().mean()
@@ -110,7 +110,7 @@ def add_usg_pct_last_5(player_data):
     return player_data
 
 def add_usg_drtg_interaction(player_data):
-    player_data['USG_DRTG_INTERACTION'] = player_data['USG_PCT'] * player_data['OPP_DRTG']
+    player_data['USG_DRTG_INTERACTION'] = player_data['USG_PCT'] * player_data['OPP_DEF_RATING']
     return player_data
 
 # teams_data['TEAM_AVG_OFF_RATING_LAST_5'] = teams_data.groupby('Team_ID')['OFF_RATING'].transform(lambda x: x.rolling(window=5, min_periods=1).mean())
