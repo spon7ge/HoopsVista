@@ -37,7 +37,9 @@ def fetch_and_process_player_stats(season='2024-25'):
     return game_logs
 
 #grabs ADV stats
-def fetch_advanced_stats_for_games(game_ids, sleep_time=0.6):
+def fetch_advanced_stats_for_player_games(player_data, sleep_time=0.6):
+    # Extract unique game IDs from player data
+    game_ids = player_data['GAME_ID'].unique()  # Assuming 'game_id' is the column containing game IDs
     all_advanced_stats = []
     total_games = len(game_ids)
     
@@ -59,6 +61,7 @@ def fetch_advanced_stats_for_games(game_ids, sleep_time=0.6):
     else:
         print("No advanced stats were fetched.")
         return pd.DataFrame()
+
 
 #Merge both basic and adv stats into one file
 def merge_player_stats_with_advanced_data(player_data, advanced_stats):

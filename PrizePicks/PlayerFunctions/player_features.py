@@ -2,50 +2,14 @@ import pandas as pd
 import numpy as np
 
 # adds the opposing teams defensive stats
-# Function to merge player_data with team and opponent stats
-def merge_player_with_team(player_data, team_data):    
-    # Prepare opponent stats by renaming columns to avoid duplication
-    teams_df_opp = team_data.copy()
-    teams_df_opp.rename(columns={
-        'TEAM_ID': 'OPP_TEAM_ID',
-        'TEAM_PACE': 'OPP_TEAM_PACE',
-        'TEAM_OFF_RATING': 'OPP_TEAM_OFF_RATING',
-        'OPP_DEF_RATING': 'OPP_DEF_RATING',
-        'TEAM_STL': 'OPP_STL',
-        'TEAM_BLK': 'OPP_BLK',
-        'TEAM_REB': 'OPP_REB'
-    }, inplace=True)
-    
-    # Merge team_data with teams_df_opp on 'GAME_ID'
-    teams_df_merged = pd.merge(
-        team_data,
-        teams_df_opp[['GAME_ID', 'OPP_TEAM_ID', 'OPP_TEAM_PACE', 'OPP_TEAM_OFF_RATING',
-                    'OPP_DEF_RATING', 'OPP_STL', 'OPP_BLK', 'OPP_REB']],
-        on='GAME_ID',
-        how='inner'  # Use 'left' if you want to keep all team_data entries
-    )
-    
-    # Step 4: Filter out rows where Team_ID == OPP_TEAM_ID
-    teams_df_merged = teams_df_merged[teams_df_merged['TEAM_ID'] != teams_df_merged['OPP_TEAM_ID']]
-    
-    # Step 5: Drop the 'OPP_TEAM_ID' column as it's no longer needed
-    teams_df_merged.drop(columns=['OPP_TEAM_ID'], inplace=True)
-    
-    # Step 6: Merge with player_data on ['GAME_ID', 'TEAM_ID']
-    player_data = pd.merge(
+def merge_player_with_team(player_data, team_data):
+    # Perform a left merge to add all team details to each player
+    merged_data = pd.merge(
         player_data,
-        opponent_stats,
-        left_on=['GAME_ID', 'OPP_TEAM_ID'],
-        right_on=['GAME_ID', 'OPP_TEAM_ID'],
+        team_data,
+        on=['GAME_ID', 'TEAM_ID'],
         how='left'
     )
-    
-    # Drop the temporary 'OPP_TEAM_ID' column
-    merged_data.drop(columns=['OPP_TEAM_ID'], inplace=True)
-    
-    # Remove duplicates if any (optional, based on your data)
-    merged_data = merged_data.loc[:, ~merged_data.columns.duplicated()]
-    
     return merged_data
 
 # Adds Player Efficiency Rating to each game they played in 
