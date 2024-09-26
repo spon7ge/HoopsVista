@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
+import json
 
 def preprocess_nba_data(data):
     """
@@ -65,4 +66,19 @@ def preprocess_nba_data(data):
     
     # Return the preprocessed data
     return data
+
+#read JSON file
+def read_json(json_file):
+    # Load the JSON file
+    file_path = json_file
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+
+    df = pd.json_normalize(data['data'])
+    return df
+
+
+# Load raw data
+def load_raw_data(file_path): # ex. file_path = r'c:\\Users\\alexg\\OneDrive\\Documents\\player_predictor\\HoopsVista\\PrizePicks\\Data\\csv_file\\combined_data\\combined_seasons_df.csv'
+    return pd.read_csv(file_path) 
 

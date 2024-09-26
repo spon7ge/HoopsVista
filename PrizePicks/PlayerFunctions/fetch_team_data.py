@@ -2,127 +2,8 @@ import pandas as pd
 from nba_api.stats.endpoints import teamgamelog
 from nba_api.stats.static import teams
 
-<<<<<<< HEAD:PrizePicks/PlayerFunctions/player_team_functions.py
-def get_player_ids_for_season(season='2022-23', output_csv='players_season.csv'):
-    game_log = leaguegamelog.LeagueGameLog(season=season, player_or_team_abbreviation='P')
-    player_games_df = game_log.get_data_frames()[0]
-
-    player_ids_df = player_games_df[['PLAYER_ID', 'PLAYER_NAME']].drop_duplicates()
-
-    # Sort the DataFrame by the last name
-    player_ids_df = player_ids_df.sort_values(by='PLAYER_NAME', key=lambda x: x.str.split().str[-1])
-    player_ids_df.reset_index(drop=True, inplace=True)
-
-    # Save the DataFrame to a CSV file
-    player_ids_df.to_csv(output_csv, index=False)
-    print(f"Data successfully saved to '{output_csv}'")
-    
-    return player_ids_df
-
-#Get players game logs
-def fetch_all_player_game_logs(player_ids, season='2022-23', sleep_time=0.6):
-    all_game_logs = []
-    player_info_dict = {}
-
-    for idx, player_id in enumerate(player_ids['PLAYER_ID']):
-        # Sleep to respect rate limits
-        time.sleep(sleep_time)
-
-        # Fetch player information (name and team) using commonplayerinfo
-        try:
-            player_info = commonplayerinfo.CommonPlayerInfo(player_id=player_id).get_data_frames()[0]
-            player_name = player_info['DISPLAY_FIRST_LAST'][0]
-            player_team_id = player_info['TEAM_ID'][0]
-            player_info_dict[player_id] = {'Name': player_name, 'Team': player_team_id}
-        except Exception as e:
-            print(f"Error fetching info for player {player_id}: {e}")
-            player_info_dict[player_id] = {'Name': 'Unknown', 'Team': 'Unknown'}
-
-        try:
-            # Fetch player game logs
-            player_log = playergamelog.PlayerGameLog(player_id=player_id, season=season).get_data_frames()[0]
-            
-            # Add player name and team to each game log entry
-            player_log['NAME'] = player_info_dict[player_id]['Name']
-            player_log['Team_ID'] = player_info_dict[player_id]['Team']
-            
-            all_game_logs.append(player_log)
-            print(f"Fetched game logs for player {idx + 1}/{len(player_ids)} (ID: {player_id})")
-        except Exception as e:
-            print(f"Error fetching game logs for player {player_id}: {e}")
-
-    # Combine all player game logs
-    all_game_logs_df = pd.concat(all_game_logs, ignore_index=True)
-    return all_game_logs_df
-
-#make sure we only get the unique gameIDs
-def get_unique_game_ids(game_logs_df):
-    game_ids = game_logs_df['Game_ID'].unique()
-    return game_ids
-
-#gather all adv stats
-def fetch_all_advanced_stats(game_ids, sleep_time=0.6, retries=3):
-    all_advanced_stats = []
-
-    for idx, game_id in enumerate(game_ids):
-        # Sleep to respect rate limits
-        time.sleep(sleep_time)
-        for attempt in range(retries):
-            try:
-                boxscore = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id, timeout=60)
-                advanced_stats = boxscore.get_data_frames()[0]
-                all_advanced_stats.append(advanced_stats)
-                print(f"Fetched advanced stats for game {idx + 1}/{len(game_ids)} (ID: {game_id})")
-                break  # Break out of retry loop if successful
-            except Exception as e:
-                if attempt < retries - 1:
-                    sleep_duration = 2 ** attempt
-                    print(f"Error fetching advanced stats for game {game_id}, attempt {attempt + 1}/{retries}: {e}")
-                    print(f"Retrying in {sleep_duration} seconds...")
-                    time.sleep(sleep_duration)
-                else:
-                    print(f"Failed to fetch advanced stats for game {game_id} after {retries} attempts.")
-        else:
-            continue  # Move to the next game ID if failed
-
-    # Combine all advanced stats
-    all_advanced_stats_df = pd.concat(all_advanced_stats, ignore_index=True)
-    return all_advanced_stats_df
-
-#merge both adv and basic stats for each player
-def merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df,output_csv='merged_gamelogs_adv.csv'):
-    #rename game_id and player_id
-    game_logs_df.rename(columns={'Game_ID': 'GAME_ID', 'Player_ID': 'PLAYER_ID'}, inplace=True)
-    # Select relevant columns from advanced stats
-    columns_to_keep = ['GAME_ID', 'PLAYER_ID', 'USG_PCT', 'TS_PCT', 'EFG_PCT',
-                       'OFF_RATING', 'DEF_RATING', 'NET_RATING']
-    advanced_stats_df = advanced_stats_df[columns_to_keep]
-    # Merge DataFrames
-    merged_df = pd.merge(game_logs_df, advanced_stats_df, on=['GAME_ID', 'PLAYER_ID'], how='left')
-    
-    merged_df['GAME_DATE'] = pd.to_datetime(merged_df['GAME_DATE'])
-    merged_df.to_csv(output_csv, index=False)
-    print(f"Data successfully saved to '{output_csv}'")
-    
-    return merged_df
-
-# game_logs_df = fetch_all_player_game_logs(player_ids, season='2022-23', sleep_time=0.5)
-
-# # Get unique game IDs
-# game_ids = get_unique_game_ids(game_logs_df)
-
-# # Fetch all advanced stats
-# advanced_stats_df = fetch_all_advanced_stats(game_ids, sleep_time=0.5, retries=3)
-
-# # Merge game logs and advanced stats
-# df = merge_game_logs_and_advanced_stats(game_logs_df, advanced_stats_df)
-
-
-def get_all_teams_gamelogs(season='2022-23'):
-=======
 #Grabs teams gamelogs to get team stats needed 
 def get_all_teams_gamelogs(season='2024-25'):
->>>>>>> 6b0eb9540a6b537d5b5fda52476781a33c2b65eb:PrizePicks/PlayerFunctions/fetch_team_data.py
     team_ids = [team['id'] for team in teams.get_teams()]
     team_names = [team['full_name'] for team in teams.get_teams()] 
     team_gamelogs_all = []
@@ -141,6 +22,7 @@ def get_all_teams_gamelogs(season='2024-25'):
     # Concatenate all the game logs into a single DataFrame
     if team_gamelogs_all:
         team_gamelogs_all_df = pd.concat(team_gamelogs_all, ignore_index=True)
+        team_gamelogs_all_df.rename(columns={'Game_ID':'GAME_ID','Team_ID':'TEAM_ID'},inplace=True)
         return team_gamelogs_all_df
     else:
         print("No data was retrieved.")
@@ -153,11 +35,11 @@ The features i will be using that involve using team data before i add it to the
 
 # Adds opponents DRTG, STL, BLK, and REB to each team for every game they played
 def add_opponent_stats(teams_df):
-    game_ids = teams_df['Game_ID'].unique()
+    game_ids = teams_df['GAME_ID'].unique()
     
     for i in game_ids:
         # Filter data for the current game
-        game_data = teams_df[teams_df['Game_ID'] == i]
+        game_data = teams_df[teams_df['GAME_ID'] == i]
 
         if len(game_data) != 2:
             continue 
@@ -190,11 +72,11 @@ def add_opponent_stats(teams_df):
 
 #Adds the teams OFF_RATING and oponents OFF_RATING
 def add_team_off_rating(teams_df):
-    game_ids = teams_df['Game_ID'].unique()
+    game_ids = teams_df['GAME_ID'].unique()
     
     for i in game_ids:
         # Filter data for the current game
-        game_data = teams_df[teams_df['Game_ID'] == i]
+        game_data = teams_df[teams_df['GAME_ID'] == i]
 
         if len(game_data) != 2:
             continue 
@@ -222,10 +104,10 @@ def add_team_off_rating(teams_df):
 
 #adds pace for team, the overall game and oppenents
 def add_pace_stats(teams_df):
-    game_ids = teams_df['Game_ID'].unique()
+    game_ids = teams_df['GAME_ID'].unique()
     
     for i in game_ids:
-        game_data = teams_df[teams_df['Game_ID'] == i]
+        game_data = teams_df[teams_df['GAME_ID'] == i]
         if len(game_data) != 2:
             continue 
         
