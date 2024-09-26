@@ -2,7 +2,6 @@ import pandas as pd
 from nba_api.stats.endpoints import teamgamelog
 from nba_api.stats.static import teams
 
-#Grabs teams gamelogs to get team stats needed 
 def get_teams_gamelogs(season='2023-24'):
     # Retrieve all team information
     all_teams = teams.get_teams()
