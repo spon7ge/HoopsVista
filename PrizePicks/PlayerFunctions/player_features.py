@@ -1,44 +1,38 @@
 import pandas as pd
 import numpy as np
 
-
 # adds the opposing teams defensive stats
 # Function to merge player_data with team and opponent stats
-def merge_player_with_team(player_data, team_data):
-    """
-    Efficiently merges player_data with team_data to add opponent details without duplicating team_data columns.
-    
-    Parameters:
-    - player_data (pd.DataFrame): DataFrame containing player game logs.
-    - team_data (pd.DataFrame): DataFrame containing team game stats.
-    
-    Returns:
-    - pd.DataFrame: Merged DataFrame with opponent details.
-    """
-    # Ensure 'GAME_ID' and 'TEAM_ID' are strings
-    player_data['GAME_ID'] = player_data['GAME_ID'].astype(str)
-    player_data['TEAM_ID'] = player_data['TEAM_ID'].astype(str)
-    team_data['GAME_ID'] = team_data['GAME_ID'].astype(str)
-    team_data['TEAM_ID'] = team_data['TEAM_ID'].astype(str)
-    
-    # Prepare opponent stats by renaming to prevent duplication
-    opponent_stats = team_data.rename(columns={
+def merge_player_with_team(player_data, team_data):    
+    # Prepare opponent stats by renaming columns to avoid duplication
+    teams_df_opp = team_data.copy()
+    teams_df_opp.rename(columns={
         'TEAM_ID': 'OPP_TEAM_ID',
         'TEAM_PACE': 'OPP_TEAM_PACE',
         'TEAM_OFF_RATING': 'OPP_TEAM_OFF_RATING',
-        'OPP_DRTG': 'OPP_DEF_RATING',
-        'STL': 'OPP_STL',
-        'BLK': 'OPP_BLK',
-        'REB': 'OPP_REB'
-    })[['GAME_ID', 'OPP_TEAM_ID', 'OPP_TEAM_PACE', 'OPP_TEAM_OFF_RATING',
-        'OPP_DEF_RATING', 'OPP_STL', 'OPP_BLK', 'OPP_REB']]
+        'OPP_DEF_RATING': 'OPP_DEF_RATING',
+        'TEAM_STL': 'OPP_STL',
+        'TEAM_BLK': 'OPP_BLK',
+        'TEAM_REB': 'OPP_REB'
+    }, inplace=True)
     
-    # Map opponent TEAM_ID based on 'OPPONENT' column in player_data
-    # Assuming 'OPPONENT' contains TEAM_ID; if it contains TEAM_NAME, map accordingly
-    player_data['OPP_TEAM_ID'] = player_data['TEAM_ID'].astype(str)
+    # Merge team_data with teams_df_opp on 'GAME_ID'
+    teams_df_merged = pd.merge(
+        team_data,
+        teams_df_opp[['GAME_ID', 'OPP_TEAM_ID', 'OPP_TEAM_PACE', 'OPP_TEAM_OFF_RATING',
+                    'OPP_DEF_RATING', 'OPP_STL', 'OPP_BLK', 'OPP_REB']],
+        on='GAME_ID',
+        how='inner'  # Use 'left' if you want to keep all team_data entries
+    )
     
-    # Merge player_data with opponent_stats
-    merged_data = pd.merge(
+    # Step 4: Filter out rows where Team_ID == OPP_TEAM_ID
+    teams_df_merged = teams_df_merged[teams_df_merged['TEAM_ID'] != teams_df_merged['OPP_TEAM_ID']]
+    
+    # Step 5: Drop the 'OPP_TEAM_ID' column as it's no longer needed
+    teams_df_merged.drop(columns=['OPP_TEAM_ID'], inplace=True)
+    
+    # Step 6: Merge with player_data on ['GAME_ID', 'TEAM_ID']
+    player_data = pd.merge(
         player_data,
         opponent_stats,
         left_on=['GAME_ID', 'OPP_TEAM_ID'],
