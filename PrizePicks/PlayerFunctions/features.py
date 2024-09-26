@@ -3,34 +3,20 @@ import numpy as np
 
 # adds the opposing teams defensive stats
 # Function to merge player_data with team and opponent stats
-def merge_player_with_team(player_data, team_data):
-    """
-    Merges player_data with team_data to add team and opponent details.
-    
-    Parameters:
-    - player_data (pd.DataFrame): DataFrame containing player game logs.
-    - team_data (pd.DataFrame): DataFrame containing team game stats.
-    
-    Returns:
-    - pd.DataFrame: Merged DataFrame with opponent details.
-    """
-    # Step 1: Rename 'Game_ID' to 'GAME_ID' in team_data if not already done
-    if 'Game_ID' in team_data.columns:
-        team_data.rename(columns={'Game_ID': 'GAME_ID', 'Team_ID':'TEAM_ID'}, inplace=True)
-    
-    # Step 2: Prepare opponent stats by renaming columns to avoid duplication
+def merge_player_with_team(player_data, team_data):    
+    # Prepare opponent stats by renaming columns to avoid duplication
     teams_df_opp = team_data.copy()
     teams_df_opp.rename(columns={
         'TEAM_ID': 'OPP_TEAM_ID',
         'TEAM_PACE': 'OPP_TEAM_PACE',
         'TEAM_OFF_RATING': 'OPP_TEAM_OFF_RATING',
-        'OPP_DRTG': 'OPP_DEF_RATING',
-        'STL': 'OPP_STL',
-        'BLK': 'OPP_BLK',
-        'REB': 'OPP_REB'
+        'OPP_DEF_RATING': 'OPP_DEF_RATING',
+        'TEAM_STL': 'OPP_STL',
+        'TEAM_BLK': 'OPP_BLK',
+        'TEAM_REB': 'OPP_REB'
     }, inplace=True)
     
-    # Step 3: Merge team_data with teams_df_opp on 'GAME_ID'
+    # Merge team_data with teams_df_opp on 'GAME_ID'
     teams_df_merged = pd.merge(
         team_data,
         teams_df_opp[['GAME_ID', 'OPP_TEAM_ID', 'OPP_TEAM_PACE', 'OPP_TEAM_OFF_RATING',
