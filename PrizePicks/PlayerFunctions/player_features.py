@@ -45,38 +45,6 @@ def player_PER(player_data):
     
     return player_data
 
-def add_pace_to_player_data(player_data, teams_df):
-    player_data['TEAM_PACE'] = None
-    player_data['GAME_PACE'] = None
-    player_data['OPP_PACE'] = None
-    
-    # Iterate through each row in the player_data
-    for idx, player in player_data.iterrows():
-        game_id = player['GAME_ID']  # Get the Game_ID from player_data
-        team_id = player['TEAM_ID']  # Get the Team_ID from player_data
-        
-        # Get the game data from teams_df corresponding to this game
-        game_data = teams_df[teams_df['GAME_ID'] == game_id]
-        
-        # Make sure there are exactly 2 teams in the game
-        if len(game_data) != 2:
-            continue  # Skip if the game data doesn't have exactly 2 teams
-        
-        # Find the player's team and opponent team in the game data
-        if game_data.iloc[0]['TEAM_ID'] == team_id:
-            team_row = game_data.iloc[0]  # This is the player's team
-            opp_row = game_data.iloc[1]   # This is the opponent team
-        else:
-            team_row = game_data.iloc[1]  # This is the player's team
-            opp_row = game_data.iloc[0]   # This is the opponent team
-        
-        # Assign the team's pace, game pace, and opponent's pace to the player
-        player_data.loc[idx, 'TEAM_PACE'] = team_row['TEAM_PACE']  # Player's team's pace
-        player_data.loc[idx, 'GAME_PACE'] = team_row['GAME_PACE']  # Overall game pace (same for both teams)
-        player_data.loc[idx, 'OPP_PACE'] = opp_row['TEAM_PACE']    # Opponent's pace
-    
-    return player_data
-
 def last_5_avg(player_data, player_id_col='PLAYER_ID', props=['PTS'], games=5, date_col='GAME_DATE'):
     # If a single stat is passed, convert it to a list to keep the logic consistent
     if isinstance(props, str):
@@ -113,7 +81,6 @@ def calculate_days_of_rest(df, player_id_col='PLAYER_ID', game_date_col='GAME_DA
     df['DAYS_OF_REST'] = df.groupby(player_id_col)[game_date_col].diff().dt.days
     return df
 
-
 #looks for back-to-back games
 def add_back_to_back(player_data):
     """
@@ -127,14 +94,14 @@ def add_back_to_back(player_data):
 def add_player_home_avg(player_data,prop):
     avg_column_name = f'PLAYER_HOME_AVG_{prop}'
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
-    lambda group: group[prop].where(group['HomeGame'] == 1).expanding().mean()
+    lambda group: group[prop].where(group['HOME_GAME'] == 1).expanding().mean()
     ).reset_index(level=0, drop=True)
     return player_data
 
 def add_player_away_avg(player_data,prop):
     avg_column_name = f'PLAYER_AWAY_AVG_{prop}'
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
-    lambda group: group[prop].where(group['HomeGame'] == 0).expanding().mean()
+    lambda group: group[prop].where(group['HOME_GAME'] == 0).expanding().mean()
     ).reset_index(level=0, drop=True)
     return player_data
 
