@@ -67,7 +67,7 @@ def merge_player_stats_with_advanced_data(player_data, advanced_stats):
     advanced_stats['PLAYER_ID'] = advanced_stats['PLAYER_ID'].astype(int)
     # Select relevant columns from advanced stats
     advanced_columns = [
-        'GAME_ID','PLAYER_ID','OFF_RATING', 'DEF_RATING', 'NET_RATING',
+        'GAME_ID','PLAYER_ID','OFF_RATING', 'PLAYER_DEF_RATING', 'NET_RATING',
         'AST_PCT', 'AST_TOV', 'USG_PCT', 'TS_PCT', 'E_PACE'
     ]
     advanced_stats_subset = advanced_stats[advanced_columns]
