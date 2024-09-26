@@ -11,4 +11,3 @@
 ## Models Used
 ### - XGBoost: A powerful gradient boosting algorithm suitable for structured/tabular data.
 ### - Random Forest: A versatile ensemble method that is robust to overfitting and handles large datasets well.
-### - Linear Regression: A simple yet effective model for making predictions on numerical data.
