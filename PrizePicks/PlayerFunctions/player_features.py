@@ -82,7 +82,7 @@ def calculate_days_of_rest(df, player_id_col='PLAYER_ID', game_date_col='GAME_DA
     return df
 
 #looks for back-to-back games
-def add_back_to_back(player_data):
+def add_back_to_back(player_data): #isnt working need to get back to it
     """
     Adds a 'BACK_TO_BACK' column to the DataFrame. 
     The value is 1 if the 'DAYS_OF_REST' is equal to 1, otherwise 0.
@@ -91,19 +91,38 @@ def add_back_to_back(player_data):
     return player_data
 
 
-def add_player_home_avg(player_data,prop):# needs tweaking, currently removing HOME_GAME from teh columns when i run it 
-    avg_column_name = f'PLAYER_HOME_AVG_{prop}'
+def add_player_home_avg(player_data, props): 
+    # Create a new column for each prop or combination of props
+    if isinstance(props, list):  # Case for multiple properties like PTS + AST
+        avg_column_name = f'PLAYER_HOME_AVG_{"_".join(props)}'
+        # Sum or combine the selected properties
+        player_data[avg_column_name] = player_data[props].sum(axis=1)
+    else:  # Case for a single property
+        avg_column_name = f'PLAYER_HOME_AVG_{props}'
+    
+    # Calculate the expanding mean for home games
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
-    lambda group: group[prop].where(group['HOME_GAME'] == 1).expanding().mean()
+        lambda group: group[avg_column_name].where(group['HOME_GAME'] == 1).expanding().mean()
     ).reset_index(level=0, drop=True)
+    
     return player_data
 
-def add_player_away_avg(player_data,prop):# needs tweaking, currently removing HOME_GAME from teh columns when i run it 
-    avg_column_name = f'PLAYER_AWAY_AVG_{prop}'
+def add_player_away_avg(player_data, props): 
+    # Create a new column for each prop or combination of props
+    if isinstance(props, list):  # Case for multiple properties like PTS + AST
+        avg_column_name = f'PLAYER_AWAY_AVG_{"_".join(props)}'
+        # Sum or combine the selected properties
+        player_data[avg_column_name] = player_data[props].sum(axis=1)
+    else:  # Case for a single property
+        avg_column_name = f'PLAYER_AWAY_AVG_{props}'
+    
+    # Calculate the expanding mean for home games
     player_data[avg_column_name] = player_data.groupby('PLAYER_ID').apply(
-    lambda group: group[prop].where(group['HOME_GAME'] == 0).expanding().mean()
+        lambda group: group[avg_column_name].where(group['HOME_GAME'] == 0).expanding().mean()
     ).reset_index(level=0, drop=True)
+    
     return player_data
+
 
 def add_usg_pct_last_5(player_data):
     player_data['USG_PCT_LAST_5'] = player_data.groupby('PLAYER_ID')['USG_PCT'].transform(lambda x: x.rolling(window=5, min_periods=1).mean())
