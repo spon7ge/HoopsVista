@@ -11,7 +11,7 @@ csv_file_path = os.path.join('..', 'Data', 'csv_file', '2024', 'players_df_2024.
 data = pd.read_csv(csv_file_path)
 
 # Define the feature columns and the target variable
-features = ['MIN', 'FTA', 'PTS_LAST_5', 'PLAYER_HOME_AVG_PTS', 'PLAYER_AWAY_AVG_PTS', 'USG_PCT', 'PER', 
+features = ['MIN','PTS_LAST_5', 'PLAYER_HOME_AVG_PTS', 'PLAYER_AWAY_AVG_PTS', 'USG_PCT', 'PER', 
             'PTS+REB_LAST_5', 'PTS+AST_LAST_5', 'TS_PCT', 'USG_PCT_LAST_5', 'USG_DRTG_INTERACTION', 'OFF_RATING', 
             'NET_RATING', 'TEAM_OFF_RATING', 'TEAM_PACE', 'TEAM_PTS', 'TEAM_AST', 'TEAM_FGA', 'TEAM_FG_PCT', 
             'OPP_DEF_RATING', 'OPP_PACE', 'OPP_REB', 'OPP_BLK', 'OPP_STL', 'HOME_GAME', 'GAME_PACE']
