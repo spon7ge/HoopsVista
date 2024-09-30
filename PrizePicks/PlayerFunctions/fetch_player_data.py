@@ -3,6 +3,7 @@ import pandas as pd
 from nba_api.stats.endpoints import leaguegamelog, boxscoreadvancedv2 
 from nba_api.stats.static import players 
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
 #grabs basic stats from gamelogs
@@ -36,31 +37,48 @@ def fetch_and_process_player_stats(season='2024-25'):
     
     return game_logs
 
-#grabs ADV stats
-def fetch_advanced_stats_for_player_games(player_data, sleep_time=0.6):
-    # Extract unique game IDs from player data
-    game_ids = player_data['GAME_ID'].unique()  # Assuming 'game_id' is the column containing game IDs
-    all_advanced_stats = []
-    total_games = len(game_ids)
-    
-    for idx, game_id in enumerate(game_ids):
-        # Respect rate limits
-        time.sleep(sleep_time)
-        try:
-            boxscore = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id)
-            advanced_stats = boxscore.get_data_frames()[0]
-            all_advanced_stats.append(advanced_stats)
-            print(f"Fetched advanced stats for game {idx + 1}/{total_games} (ID: {game_id})")
-        except Exception as e:
-            print(f"Error fetching advanced stats for game {game_id}: {e}")
-    
-    # Combine all advanced stats into a single DataFrame
-    if all_advanced_stats:
-        advanced_stats_df = pd.concat(all_advanced_stats, ignore_index=True)
-        return advanced_stats_df
-    else:
-        print("No advanced stats were fetched.")
-        return pd.DataFrame()
+def fetch_advanced_stats_for_game(game_id, sleep_time=1):
+   try:
+       time.sleep(sleep_time)  # Sleep to respect rate limits
+       boxscore = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=game_id)
+       advanced_stats = boxscore.get_data_frames()[0]  # Adjust index if necessary
+       return advanced_stats
+   except Exception as e:
+       print(f"Error fetching advanced stats for game {game_id}: {e}")
+       return pd.DataFrame()
+
+
+# Function to fetch advanced stats for all games in player_data using parallel processing
+def add_advanced_stats_for_player_games(player_data, sleep_time=1, max_workers=4):
+   # Extract unique game IDs from player data
+   game_ids = player_data['GAME_ID'].unique()  # Assuming 'game_id' is the column containing game IDs
+   total_games = len(game_ids)
+   all_advanced_stats = []
+
+
+   # Use ThreadPoolExecutor to fetch stats in parallel
+   with ThreadPoolExecutor(max_workers=max_workers) as executor:
+       futures = {executor.submit(fetch_advanced_stats_for_game, game_id, sleep_time): game_id for game_id in game_ids}
+      
+       for idx, future in enumerate(as_completed(futures)):
+           game_id = futures[future]
+           try:
+               advanced_stats = future.result()
+               if not advanced_stats.empty:
+                   all_advanced_stats.append(advanced_stats)
+               print(f"Fetched advanced stats for game {idx + 1}/{total_games} (ID: {game_id})")
+           except Exception as e:
+               print(f"Error processing game {game_id}: {e}")
+
+
+   # Combine all advanced stats into a single DataFrame
+   if all_advanced_stats:
+       advanced_stats_df = pd.concat(all_advanced_stats, ignore_index=True)
+       return advanced_stats_df
+   else:
+       print("No advanced stats were fetched.")
+       return pd.DataFrame()
+
 
 
 #Merge both basic and adv stats into one file
@@ -98,7 +116,7 @@ def save_player_stats_to_csv(data, season='2025',type='team'):
     return output_file
 
 
-def append_to_combined_csv(new_file, combined_file='data/csv_file/combined/combined_df.csv'):
+def append_to_combined_csv(new_file, combined_file='Data/csv_file/combined/combined_df.csv'):
     # Read new data
     new_data = pd.read_csv(new_file)
     # Read existing combined data
