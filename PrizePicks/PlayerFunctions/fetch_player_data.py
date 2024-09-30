@@ -107,8 +107,8 @@ Using these functions you can save the files into the Data folder/csv_file with 
 '''
 def save_player_stats_to_csv(data, season='2025',type='team'):
     # Set the data directory directly to your desired path
-    # data_dir = 'C:/Users/alexg/OneDrive/Documents/player_predictor/HoopsVista/PrizePicks/Data/csv_file/2025' #windows
-    data_dir = '/Applications/Documents/PredictorProject/playerPredictor/PrizePicks/Data/csv_file/2023' #mac
+    data_dir = 'C:/Users/alexg/OneDrive/Documents/player_predictor/HoopsVista/PrizePicks/Data/csv_file/2025' #windows
+    # data_dir = '/Applications/Documents/PredictorProject/playerPredictor/PrizePicks/Data/csv_file/2023' #mac
     os.makedirs(data_dir, exist_ok=True)  # Creates the directory if it doesn't exist
     output_file = os.path.join(data_dir, f'{type}_df_{season}.csv')
     data.to_csv(output_file, index=False)  # Saves the data to the specified file
@@ -116,7 +116,7 @@ def save_player_stats_to_csv(data, season='2025',type='team'):
     return output_file
 
 
-def append_to_combined_csv(new_file, combined_file='Data/csv_file/combined/combined_df.csv'):
+def append_to_combined_csv(new_file, combined_file='Data/csv_file/combined_data/train_data.csv'):
     # Read new data
     new_data = pd.read_csv(new_file)
     # Read existing combined data
