@@ -105,9 +105,9 @@ def merge_player_stats_with_advanced_data(player_data, advanced_stats):
 Using these functions you can save the files into the Data folder/csv_file with its correct folder, then we append it to the combined_seasons_df.csv to use for my model
 
 '''
-def save_player_stats_to_csv(data, season='2025',type='team'):
+def save_player_stats_to_csv(data, season='2025',type='team',where='2025'):
     # Set the data directory directly to your desired path
-    data_dir = 'C:/Users/alexg/OneDrive/Documents/player_predictor/HoopsVista/PrizePicks/Data/csv_file/2025' #windows
+    data_dir = f'C:/Users/alexg/OneDrive/Documents/player_predictor/HoopsVista/PrizePicks/Data/csv_file/{where}' #windows
     # data_dir = '/Applications/Documents/PredictorProject/playerPredictor/PrizePicks/Data/csv_file/2023' #mac
     os.makedirs(data_dir, exist_ok=True)  # Creates the directory if it doesn't exist
     output_file = os.path.join(data_dir, f'{type}_df_{season}.csv')
