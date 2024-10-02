@@ -1,5 +1,7 @@
 from nba_api.stats.static import players,teams
 import requests
+import pandas as pd
+import json
 
  
 #looks for name using players ID

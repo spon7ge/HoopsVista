@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV,cross_val_score
 from sklearn.metrics import mean_squared_error, r2_score
 from xgboost import XGBRegressor
 import joblib  # For saving the model
@@ -9,13 +9,11 @@ import joblib  # For saving the model
 csv_file_path = os.path.join('..', 'Data', 'csv_file', 'combined_data', 'train_data.csv')
 train_data = pd.read_csv(csv_file_path)
 
-# Define features and target
 features = [
     'MIN', 'FG_PCT', 'FG3_PCT', 'FT_PCT', 'PTS_LAST_3', 'PTS_LAST_5', 'PTS_LAST_7',
-    'PLAYER_HOME_AVG_PTS', 'PLAYER_AWAY_AVG_PTS', 'USG_PCT', 'PER', 'TS_PCT',
-    'USG_PCT_LAST_5', 'USG_DRTG_INTERACTION', 'NET_RATING', 'OFF_RATING',
-    'TEAM_OFF_RATING', 'TEAM_PACE', 'TEAM_PTS', 'TEAM_AST', 'TEAM_FGA',
-    'OPP_DEF_RATING', 'OPP_PACE', 'GAME_PACE', 'HOME_GAME'
+    'PLAYER_HOME_AVG_PTS', 'PLAYER_AWAY_AVG_PTS', 'USG_PCT', 'TS_PCT',
+    'USG_PCT_LAST_5', 'OFF_RATING','TEAM_OFF_RATING', 'TEAM_PACE','OPP_DEF_RATING', 
+    'OPP_PACE', 'GAME_PACE', 'HOME_GAME'
 ]
 
 X_train = train_data[features]
@@ -31,7 +29,7 @@ rmse_scores = np.sqrt(-cv_scores)
 print(f"Cross-validated RMSE: {rmse_scores.mean():.4f} ± {rmse_scores.std():.4f}")
 
 # Load the test data (2024)
-test_csv_file_path = os.path.join('..', 'Data', 'csv_file', '2024', 'players_df_2024.csv')
+test_csv_file_path = os.path.join('..', 'Data', 'csv_file', '2024', 'players_PTS_df_2024.csv')
 test_data = pd.read_csv(test_csv_file_path)
 
 # Ensure the test data has the same features
@@ -50,9 +48,3 @@ print(f"2024 Season RMSE: {rmse_2024:.4f}, R²: {r2_2024:.4f}")
 test_data['actual'] = y_test
 test_data['predicted'] = predictions_2024
 test_data['error'] = abs(y_test-predictions_2024)
-
-# Optionally, save the results or further analyze them
-# test_data.to_csv('predictions_2024.csv', index=False)
-
-
-

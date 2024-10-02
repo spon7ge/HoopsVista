@@ -10,23 +10,20 @@ csv_file_path = os.path.join('..', 'Data', 'csv_file', 'combined_data', 'train_d
 train_data = pd.read_csv(csv_file_path)
 
 features = [
-    'MIN', 'OREB', 'DREB', 'REB_LAST_3', 'REB_LAST_5', 'REB_LAST_7',
-    'USG_PCT', 'TS_PCT', 'PER', 'PLAYER_HOME_AVG_REB', 'PLAYER_AWAY_AVG_REB',
-    'TEAM_REB', 'TEAM_OREB', 'TEAM_DREB', 'TEAM_PACE', 'TEAM_FGA', 'TEAM_FG_PCT', 'TEAM_AST',
-    'OPP_DEF_RATING', 'OPP_REB', 'OPP_BLK', 'OPP_PACE',
-    'GAME_PACE', 'HOME_GAME', 'USG_DRTG_INTERACTION',
-    'PTS+REB_LAST_5', 'PLAYER_HOME_AVG_PTS_REB', 'PLAYER_AWAY_AVG_PTS_REB'
+    'MIN','AST_PCT', 'AST_TOV','USG_PCT', 'TS_PCT', 'PER', 'AST_LAST_3','AST_LAST_5', 'AST_LAST_7',
+    'OFF_RATING','PTS+AST_LAST_5', 'PLAYER_HOME_AVG_AST', 'PLAYER_AWAY_AVG_AST',
+    'TEAM_AST', 'TEAM_PACE','OPP_DEF_RATING', 'OPP_STL', 'OPP_PACE', 'HOME_GAME',
 ]
 
 X_train = train_data[features]
-y_train = train_data['REB']
+y_train = train_data['AST']
 
 # Initialize and train the XGBRegressor
-xgb_model_ast = XGBRegressor()
-xgb_model_ast.fit(X_train, y_train)
+xgb_model_reb = XGBRegressor()
+xgb_model_reb.fit(X_train, y_train)
 
 # Evaluate the model using cross-validation on the training data
-cv_scores = cross_val_score(xgb_model_ast, X_train, y_train, cv=5, scoring='neg_mean_squared_error')
+cv_scores = cross_val_score(xgb_model_reb, X_train, y_train, cv=5, scoring='neg_mean_squared_error')
 rmse_scores = np.sqrt(-cv_scores)
 print(f"Cross-validated RMSE: {rmse_scores.mean():.4f} ± {rmse_scores.std():.4f}")
 
@@ -36,10 +33,10 @@ test_data = pd.read_csv(test_csv_file_path)
 
 # Ensure the test data has the same features
 X_test = test_data[features]
-y_test = test_data['REB']
+y_test = test_data['AST']
 
 # Make predictions on the 2024 data
-predictions_2024 = xgb_model_ast.predict(X_test)
+predictions_2024 = xgb_model_reb.predict(X_test)
 
 # Evaluate the model's performance on the 2024 data
 rmse_2024 = np.sqrt(mean_squared_error(y_test, predictions_2024))

@@ -109,7 +109,6 @@ As your development lead and design consultant, I've structured a comprehensive 
   {
     "player_name": "LeBron James",
     "prop_type": "points",
-    "opponent_team": "Golden State Warriors",
     "prop_line": 27.5
   }
   The endpoint should return the predicted probability of the player exceeding the prop line.
