@@ -77,12 +77,14 @@ def add_opponent_stats(teams_df):
         teams_df.loc[game_data.index[0], 'OPP_STL'] = team_two['TEAM_STL']  # Team one's opponent steals
         teams_df.loc[game_data.index[0], 'OPP_BLK'] = team_two['TEAM_BLK']  # Team one's opponent blocks
         teams_df.loc[game_data.index[0], 'OPP_REB'] = team_two['TEAM_OREB'] + team_two['TEAM_DREB']  # Team one's opponent total rebounds
+        teams_df.loc[game_data.index[0], 'OPP_FG_PCT'] = team_two['TEAM_FGM'] / team_two['TEAM_FGA']  # Team one's opponent FG%
 
         # Update team two's OPP stats based on team one's stats
         teams_df.loc[game_data.index[1], 'OPP_STL'] = team_one['TEAM_STL']  # Team two's opponent steals
         teams_df.loc[game_data.index[1], 'OPP_BLK'] = team_one['TEAM_BLK']  # Team two's opponent blocks
         teams_df.loc[game_data.index[1], 'OPP_REB'] = team_one['TEAM_OREB'] + team_one['TEAM_DREB']  # Team two's opponent total rebounds
-        
+        teams_df.loc[game_data.index[1], 'OPP_FG_PCT'] = team_one['TEAM_FGM'] / team_one['TEAM_FGA']  # Team two's opponent FG%
+
         # Add OPP_TEAM_ID column
         teams_df.loc[game_data.index[0], 'OPP_TEAM_ID'] = team_two['TEAM_ID']  # Team one's opponent team ID
         teams_df.loc[game_data.index[1], 'OPP_TEAM_ID'] = team_one['TEAM_ID']  # Team two's opponent team ID

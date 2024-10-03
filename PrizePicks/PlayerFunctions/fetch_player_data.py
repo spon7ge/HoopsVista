@@ -29,9 +29,10 @@ def fetch_and_process_player_stats(season='2024-25'):
         return opponent
 
     game_logs['OPPONENT'] = game_logs.apply(extract_opponent, axis=1)
+    game_logs['HOME_GAME'] = game_logs['MATCHUP'].apply(lambda x: 1 if 'vs.' in x else 0)
     
     # Reorder columns
-    game_logs = game_logs[['PLAYER_NAME','PLAYER_ID','MATCHUP', 'TEAM','TEAM_ID', 'OPPONENT','GAME_ID', 'GAME_DATE','WL', 'MIN', 'PTS', 'AST', 'REB', 'FGM',
+    game_logs = game_logs[['PLAYER_NAME','PLAYER_ID','MATCHUP', 'TEAM','TEAM_ID', 'OPPONENT','HOME_GAME','GAME_ID', 'GAME_DATE','WL', 'MIN', 'PTS', 'AST', 'REB', 'FGM',
        'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT',
        'OREB', 'DREB','STL', 'BLK', 'TOV', 'PF','PLUS_MINUS','FANTASY_PTS']]
     
@@ -98,7 +99,16 @@ def merge_player_stats_with_advanced_data(player_data, advanced_stats):
     
     return merged_data
 
-
+# adds the opposing teams defensive stats, once you have the teams game logs
+def merge_player_with_team(player_data, team_data):
+    # Perform a left merge to add all team details to each player
+    merged_data = pd.merge(
+        player_data,
+        team_data,
+        on=['GAME_ID', 'TEAM_ID'],
+        how='left'
+    )
+    return merged_data
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 '''
 
