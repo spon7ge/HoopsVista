@@ -1,0 +1,42 @@
+# Python bytecode
+*.pyc
+
+# Python cache directories
+__pycache__/
+
+# SQLite database file
+db.sqlite3
+
+# Environment variables file
+.env
+
+# Virtual environment
+venv/
+env/
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Backup files
+*.bak
+
+# Django static files collection directory
+/static/
+
+# Django media files
+/media/
+
+# Temporary files
+*.tmp
+
+# Coverage reports
+htmlcov/
+.coverage
