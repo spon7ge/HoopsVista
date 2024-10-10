@@ -2,7 +2,7 @@ from collections import defaultdict
 from WNBAPropFinder.ODDS_WNBA_SCRAPER import ODDS_WNBA_SCRAPER
 from WNBAPropFinder.PRIZEPICKS_WNBA_SCRAPER import PRIZEPICKS_WNBA_SCRAPER
 from BookWeight import BookWeight
-
+import json
 
 class WNBAPropFinder():
     
@@ -100,7 +100,19 @@ class WNBAPropFinder():
         return ans
         
     def getData(self):
+        all_props = {}
         for category in self.categories:
             if category in {"Points", "Rebounds", "Assists", "3-PT Made", "Blocked Shots", "Steals", "Pts+Rebs+Asts", "Pts+Rebs", "Pts+Asts", "Rebs+Asts"}:
-                print("-------------------"+category+"-------------------")
-                print(self.getCategory(category))
+                props = self.getCategory(category)
+                all_props[category] = [
+                    {"name": prop[0], "type": prop[1], "line": prop[2], "odds": prop[3], "half": prop[4]}
+                    for prop in props
+                ]
+        return all_props
+
+    def save_to_json(self, filename='wnba_props.json'):
+        data = self.getData()
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=2)
+        print(f"Data saved to {filename}")
+

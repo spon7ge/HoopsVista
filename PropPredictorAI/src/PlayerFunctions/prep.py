@@ -22,5 +22,5 @@ def prepare_recent_player_logs(season='2024-25'):
     return recent_logs
 
 # Example usage:
-recent_logs = prepare_recent_player_logs()
+player_recent_logs = prepare_recent_player_logs()
 

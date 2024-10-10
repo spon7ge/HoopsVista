@@ -1,0 +1,277 @@
+{
+  "Points": [
+    {
+      "name": "Leonie Fiebich",
+      "type": "Under",
+      "line": 7.5,
+      "odds": -130,
+      "half": "half"
+    },
+    {
+      "name": "Courtney Vandersloot",
+      "type": "Under",
+      "line": 6.5,
+      "odds": -124,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Over",
+      "line": 20.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 17.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 17.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Under",
+      "line": 20.5,
+      "odds": -104,
+      "half": "half"
+    },
+    {
+      "name": "Courtney Vandersloot",
+      "type": "Over",
+      "line": 6.5,
+      "odds": -40,
+      "half": "half"
+    },
+    {
+      "name": "Leonie Fiebich",
+      "type": "Over",
+      "line": 7.5,
+      "odds": 45,
+      "half": "half"
+    }
+  ],
+  "Assists": [
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 5.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 5.5,
+      "odds": -99,
+      "half": "half"
+    }
+  ],
+  "Pts+Rebs": [
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 22.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Alanna Smith",
+      "type": "Over",
+      "line": 13.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Alanna Smith",
+      "type": "Under",
+      "line": 13.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 22.5,
+      "odds": -112,
+      "half": "half"
+    }
+  ],
+  "Pts+Rebs+Asts": [
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 28.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Napheesa Collier",
+      "type": "Under",
+      "line": 33.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Courtney Williams",
+      "type": "Over",
+      "line": 22.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Over",
+      "line": 34.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Under",
+      "line": 34.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 28.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Napheesa Collier",
+      "type": "Over",
+      "line": 33.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Courtney Williams",
+      "type": "Under",
+      "line": 22.5,
+      "odds": -63,
+      "half": "half"
+    }
+  ],
+  "Pts+Asts": [
+    {
+      "name": "Courtney Williams",
+      "type": "Under",
+      "line": 17.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Under",
+      "line": 24.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Over",
+      "line": 24.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Courtney Williams",
+      "type": "Over",
+      "line": 17.5,
+      "odds": -100,
+      "half": "half"
+    }
+  ],
+  "Rebounds": [
+    {
+      "name": "Napheesa Collier",
+      "type": "Over",
+      "line": 9.5,
+      "odds": -119,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 4.5,
+      "odds": -105,
+      "half": "half"
+    },
+    {
+      "name": "Napheesa Collier",
+      "type": "Under",
+      "line": 9.5,
+      "odds": -64,
+      "half": "half"
+    }
+  ],
+  "Rebs+Asts": [
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Under",
+      "line": 10.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Under",
+      "line": 13.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "Sabrina Ionescu",
+      "type": "Over",
+      "line": 10.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "Breanna Stewart",
+      "type": "Over",
+      "line": 13.5,
+      "odds": -106,
+      "half": "half"
+    }
+  ],
+  "3-PT Made": [
+    {
+      "name": "Breanna Stewart",
+      "type": "Over",
+      "line": 1.5,
+      "odds": 112,
+      "half": "half"
+    },
+    {
+      "name": "Bridget Carleton",
+      "type": "Over",
+      "line": 2.5,
+      "odds": 118,
+      "half": "half"
+    },
+    {
+      "name": "Kayla McBride",
+      "type": "Over",
+      "line": 2.5,
+      "odds": 139,
+      "half": "half"
+    }
+  ]
+}

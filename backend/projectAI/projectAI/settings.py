@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'corsheaders',
+    'predictor',  # Add this line
+    'rest_framework',  # Make sure this is also included
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 class PredictionInputSerializer(serializers.Serializer):
-    Name = serializers.CharField(max_length=100)
-    Stat_Type = serializers.CharField(max_length=50)
+    Name = serializers.CharField()
+    Stat_Type = serializers.CharField()
     Line = serializers.FloatField()
+    Sport = serializers.CharField(default='WNBA')

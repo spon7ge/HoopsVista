@@ -2,6 +2,7 @@ from collections import defaultdict
 from NFLPropFinder.ODDS_NFL_SCRAPER import ODDS_NFL_SCRAPER
 from NFLPropFinder.PRIZEPICKS_NFL_SCRAPER import PRIZEPICKS_NFL_SCRAPER
 from BookWeight import BookWeight
+import json
 
 class NFLPropFinder():
     
@@ -83,3 +84,4 @@ class NFLPropFinder():
             if category in {"Pass Yards", "Receiving Yards", "Rush+Rec TDs", "Rush Yards"}:
                 print("-------------------"+category+"-------------------")
                 print(self.getCategory(category))
+

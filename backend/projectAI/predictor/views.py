@@ -1,27 +1,25 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
+from django.http import JsonResponse
+from django.conf import settings
+import os
+import json
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import PredictionInputSerializer
-import random  # This is just for the mock prediction, replace with your actual model
 
-# Create your views here.
+@api_view(['GET'])
+def get_wnba_props(request):
+    json_file_path = os.path.join(settings.BASE_DIR, 'predictor', 'wnba_props.json')
+    try:
+        with open(json_file_path, 'r') as f:
+            data = json.load(f)
+        return Response(data)
+    except FileNotFoundError:
+        return Response({"error": "WNBA props data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except json.JSONDecodeError:
+        return Response({"error": "Invalid JSON data"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class PredictView(APIView):
-    def post(self, request):
-        serializer = PredictionInputSerializer(data=request.data)
-        if serializer.is_valid():
-            name = serializer.validated_data['Name']
-            stat_type = serializer.validated_data['Stat_Type']
-            line = serializer.validated_data['Line']
-
-            # TODO: Replace this with your actual prediction model
-            # This is just a mock prediction
-            predicted_value = random.uniform(line - 5, line + 5)
-            probability = random.uniform(0, 1)
-
-            return Response({
-                'predicted_probability': probability,
-                'predicted_value': predicted_value
-            }, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# Remove or update PropsView if it's no longer needed
+# class PropsView(APIView):
+#     def get(self, request):
+#         # Update this method to work with JSON data if still needed
+#         pass

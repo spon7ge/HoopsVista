@@ -11,13 +11,15 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({ selectedTab, onTabChange, searchTerm, onSearchChange }) => {
   const tabs = [
     "Points",
+    "Points (Combo)",
     "Assists",
     "Rebounds",
     "3-PT Made",
-    "Pts+Ast",
-    "Pts+Reb",
-    "Ast+Reb",
-    "Pts+Ast+Reb"
+    "Pts+Asts",
+    "Pts+Rebs",
+    "FG Attempted",
+    "Rebs+Asts",
+    "Pts+Rebs+Asts"
   ];
 
   return (

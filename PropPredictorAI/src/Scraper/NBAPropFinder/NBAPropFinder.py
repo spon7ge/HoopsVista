@@ -2,6 +2,7 @@ from collections import defaultdict
 from NBAPropFinder.ODDS_NBA_SCRAPER import ODDS_NBA_SCRAPER
 from NBAPropFinder.PRIZEPICKS_NBA_SCRAPER import PRIZEPICKS_NBA_SCRAPER
 from BookWeight import BookWeight
+import json
 # from DK_NBA_SCRAPER import DK_NBA_SCRAPER
 '''
 DK_NBA_SCRAPER depricated since odds-api takes odds
