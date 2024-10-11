@@ -23,7 +23,9 @@ export default function Home() {
     const loadProps = async () => {
       try {
         setIsLoading(true);
+        console.log('Fetching props...');
         const data = await fetchProps();
+        console.log('Fetched props:', data);
         setProps(data);
         setError(null);
       } catch (error) {
