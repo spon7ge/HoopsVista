@@ -4,8 +4,8 @@ class Supplier:
         self.key = "18d788cee86462294d091bcd8b1f50c5"
         
         # The directory is the location of the projections.json file
-        self.directory = "/Users/alexg/Downloads/projections.json"
-        
+        # self.directory = "/Users/alexg/Downloads/projections.json"
+        self.directory = "c:/Users/alexg/Downloads/projections.json"
     def get_key(self):
         return self.key
     
