@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "django": "cd ../backend/projectAI && python manage.py runserver",
-    "dev:all": "concurrently \"npm run dev\" \"npm run django\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run django\"" 
   },
   "dependencies": {
     "@headlessui/react": "^2.1.9",

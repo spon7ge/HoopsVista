@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-white">WNBA Prop Lines</h1>
+        <h1 className="text-3xl font-bold mb-6 text-white">HoopsVista</h1>
         <Tabs 
           selectedTab={selectedTab} 
           onTabChange={setSelectedTab}

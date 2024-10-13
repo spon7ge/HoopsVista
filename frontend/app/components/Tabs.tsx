@@ -26,10 +26,10 @@ const Tabs: React.FC<TabsProps> = ({ selectedTab, onTabChange, searchTerm, onSea
         {tabs.map((tab) => (
           <button
             key={tab}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150 ${
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-150 ${
               selectedTab === tab
-                ? 'bg-gray-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-white text-black'
+                : 'bg-gray-800 text-white hover:bg-gray-700'
             }`}
             onClick={() => onTabChange(tab)}
           >
