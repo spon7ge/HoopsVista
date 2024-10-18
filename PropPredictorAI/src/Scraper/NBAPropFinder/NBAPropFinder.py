@@ -3,6 +3,7 @@ from NBAPropFinder.ODDS_NBA_SCRAPER import ODDS_NBA_SCRAPER
 from NBAPropFinder.PRIZEPICKS_NBA_SCRAPER import PRIZEPICKS_NBA_SCRAPER
 from BookWeight import BookWeight
 import json
+import os
 # from DK_NBA_SCRAPER import DK_NBA_SCRAPER
 '''
 DK_NBA_SCRAPER depricated since odds-api takes odds
@@ -103,7 +104,23 @@ class NBAPropFinder():
         return ans
         
     def getData(self):
+        all_props = {}
         for category in self.categories:
             if category in {"Points", "Rebounds", "Assists", "3-PT Made", "Blocked Shots", "Steals", "Pts+Rebs+Asts", "Pts+Rebs", "Pts+Asts", "Rebs+Asts"}:
-                print("-------------------"+category+"-------------------")
-                print(self.getCategory(category))
+                props = self.getCategory(category)
+                all_props[category] = [
+                    {"name": prop[0], "type": prop[1], "line": prop[2], "odds": prop[3], "half": prop[4]}
+                    for prop in props
+                ]
+        return all_props
+
+    def save_to_json(self, filename='nba_props.json'):
+        data = self.getData()
+        # Use an absolute path to the json_folder
+        json_folder = os.path.abspath(os.path.join('..','..','..','backend', 'projectAI', 'predictor', 'json_folder'))  # Absolute path
+        os.makedirs(json_folder, exist_ok=True)  
+        file_path = os.path.join(json_folder, filename)
+        
+        with open(file_path, 'w') as f:
+            json.dump(data, f, indent=2)
+        print(f"Data saved to {file_path}")
