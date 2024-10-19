@@ -4,6 +4,8 @@ from NBAPropFinder.PRIZEPICKS_NBA_SCRAPER import PRIZEPICKS_NBA_SCRAPER
 from BookWeight import BookWeight
 import json
 import os
+from datetime import datetime 
+
 # from DK_NBA_SCRAPER import DK_NBA_SCRAPER
 '''
 DK_NBA_SCRAPER depricated since odds-api takes odds
@@ -114,11 +116,12 @@ class NBAPropFinder():
                 ]
         return all_props
 
-    def save_to_json(self, filename='nba_props.json'):
+    def save_to_json_nba(self, filename='nba_props.json'):
         data = self.getData()
         # Use an absolute path to the json_folder
         json_folder = os.path.abspath(os.path.join('..','..','..','backend', 'projectAI', 'predictor', 'json_folder'))  # Absolute path
-        os.makedirs(json_folder, exist_ok=True)  
+        os.makedirs(json_folder, exist_ok=True)
+         
         file_path = os.path.join(json_folder, filename)
         
         with open(file_path, 'w') as f:

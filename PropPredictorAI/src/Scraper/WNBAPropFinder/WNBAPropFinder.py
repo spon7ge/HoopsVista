@@ -4,6 +4,7 @@ from WNBAPropFinder.PRIZEPICKS_WNBA_SCRAPER import PRIZEPICKS_WNBA_SCRAPER
 from BookWeight import BookWeight
 import json
 import os
+from datetime import datetime 
 
 class WNBAPropFinder():
     
@@ -111,11 +112,14 @@ class WNBAPropFinder():
                 ]
         return all_props
 
-    def save_to_json(self, filename='wnba_props1.json'):
+    def save_to_json_wnba(self, filename='WNBA_props.json'):
         data = self.getData()
         # Use an absolute path to the json_folder
         json_folder = os.path.abspath(os.path.join('..','..','..','backend', 'projectAI', 'predictor', 'json_folder'))  # Absolute path
-        os.makedirs(json_folder, exist_ok=True)  
+        os.makedirs(json_folder, exist_ok=True)
+        
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        filename = f'WNBA_props({current_date}).json'
         file_path = os.path.join(json_folder, filename)
         
         with open(file_path, 'w') as f:

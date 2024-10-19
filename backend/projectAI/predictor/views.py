@@ -10,12 +10,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 @api_view(['GET'])
-def get_wnba_props(request):
+def get_nba_props(request):
     logger.info("Received request for NBA props")
     
     # Define the path to the json_folder
     json_folder = os.path.join(settings.BASE_DIR, 'predictor', 'json_folder')
-    json_file_path = os.path.join(json_folder, 'wnba_props.json')
+    json_file_path = os.path.join(json_folder, 'nba_props.json')
     
     logger.info(f"Attempting to read file from: {json_file_path}")
     
@@ -31,6 +31,3 @@ def get_wnba_props(request):
     except json.JSONDecodeError as e:
         logger.error(f"JSON decode error: {str(e)}")
         return Response({"error": f"Invalid JSON data: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

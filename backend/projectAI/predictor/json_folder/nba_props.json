@@ -1,0 +1,956 @@
+{
+  "Assists": [
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 5.5,
+      "odds": -123,
+      "half": "half"
+    },
+    {
+      "name": "Mike Conley",
+      "type": "Under",
+      "line": 5.5,
+      "odds": -121,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Over",
+      "line": 6.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Under",
+      "line": 4.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Under",
+      "line": 6.5,
+      "odds": -109,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 4.5,
+      "odds": -108,
+      "half": "half"
+    },
+    {
+      "name": "Mike Conley",
+      "type": "Over",
+      "line": 5.5,
+      "odds": -107,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 5.5,
+      "odds": -53,
+      "half": "half"
+    }
+  ],
+  "Pts+Rebs": [
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 17.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "Julius Randle",
+      "type": "Over",
+      "line": 26.5,
+      "odds": -123,
+      "half": "half"
+    },
+    {
+      "name": "D'Angelo Russell",
+      "type": "Under",
+      "line": 19.5,
+      "odds": -121,
+      "half": "half"
+    },
+    {
+      "name": "Al Horford",
+      "type": "Over",
+      "line": 15.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Davis",
+      "type": "Over",
+      "line": 37.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Under",
+      "line": 29.5,
+      "odds": -119,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Under",
+      "line": 31.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 35.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Over",
+      "line": 31.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Over",
+      "line": 30.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Austin Reaves",
+      "type": "Under",
+      "line": 19.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Over",
+      "line": 17.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Under",
+      "line": 17.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Under",
+      "line": 30.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Under",
+      "line": 31.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Austin Reaves",
+      "type": "Over",
+      "line": 19.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Over",
+      "line": 31.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Over",
+      "line": 33.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Under",
+      "line": 33.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 35.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Al Horford",
+      "type": "Under",
+      "line": 15.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Over",
+      "line": 29.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Davis",
+      "type": "Under",
+      "line": 37.5,
+      "odds": -109,
+      "half": "half"
+    },
+    {
+      "name": "D'Angelo Russell",
+      "type": "Over",
+      "line": 19.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 17.5,
+      "odds": -105,
+      "half": "half"
+    },
+    {
+      "name": "Julius Randle",
+      "type": "Under",
+      "line": 26.5,
+      "odds": -104,
+      "half": "half"
+    }
+  ],
+  "Pts+Rebs+Asts": [
+    {
+      "name": "Derrick White",
+      "type": "Under",
+      "line": 23.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Over",
+      "line": 38.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Tobias Harris",
+      "type": "Over",
+      "line": 25.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Over",
+      "line": 22.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Over",
+      "line": 34.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Over",
+      "line": 39.5,
+      "odds": -119,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 41.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "D'Angelo Russell",
+      "type": "Over",
+      "line": 24.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Over",
+      "line": 37.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Mikal Bridges",
+      "type": "Under",
+      "line": 22.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 21.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Under",
+      "line": 37.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 21.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Mikal Bridges",
+      "type": "Over",
+      "line": 22.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "D'Angelo Russell",
+      "type": "Under",
+      "line": 24.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 41.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Under",
+      "line": 22.5,
+      "odds": -108,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Under",
+      "line": 39.5,
+      "odds": -108,
+      "half": "half"
+    },
+    {
+      "name": "Tobias Harris",
+      "type": "Under",
+      "line": 25.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Under",
+      "line": 34.5,
+      "odds": -105,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Over",
+      "line": 23.5,
+      "odds": -105,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Under",
+      "line": 38.5,
+      "odds": -98,
+      "half": "half"
+    }
+  ],
+  "Rebounds": [
+    {
+      "name": "Rui Hachimura",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -131,
+      "half": "half"
+    },
+    {
+      "name": "Nickeil Alexander-Walker",
+      "type": "Under",
+      "line": 1.5,
+      "odds": -130,
+      "half": "half"
+    },
+    {
+      "name": "Rudy Gobert",
+      "type": "Over",
+      "line": 12.5,
+      "odds": -124,
+      "half": "half"
+    },
+    {
+      "name": "Cade Cunningham",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -120,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Over",
+      "line": 4.5,
+      "odds": -119,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Davis",
+      "type": "Over",
+      "line": 12.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Over",
+      "line": 3.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Under",
+      "line": 3.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Davis",
+      "type": "Under",
+      "line": 12.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Under",
+      "line": 4.5,
+      "odds": -103,
+      "half": "half"
+    },
+    {
+      "name": "Rudy Gobert",
+      "type": "Under",
+      "line": 12.5,
+      "odds": -94,
+      "half": "half"
+    },
+    {
+      "name": "Cade Cunningham",
+      "type": "Under",
+      "line": 4.5,
+      "odds": -54,
+      "half": "half"
+    },
+    {
+      "name": "Nickeil Alexander-Walker",
+      "type": "Over",
+      "line": 1.5,
+      "odds": 17,
+      "half": "half"
+    },
+    {
+      "name": "Rui Hachimura",
+      "type": "Under",
+      "line": 4.5,
+      "odds": 64,
+      "half": "half"
+    }
+  ],
+  "Points": [
+    {
+      "name": "Austin Reaves",
+      "type": "Under",
+      "line": 15.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Over",
+      "line": 12.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Under",
+      "line": 24.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Over",
+      "line": 12.5,
+      "odds": -121,
+      "half": "half"
+    },
+    {
+      "name": "Julius Randle",
+      "type": "Over",
+      "line": 18.5,
+      "odds": -121,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Over",
+      "line": 13.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Cade Cunningham",
+      "type": "Under",
+      "line": 24.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Under",
+      "line": 20.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 26.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Tobias Harris",
+      "type": "Over",
+      "line": 16.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 8.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 26.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 8.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Over",
+      "line": 20.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Tobias Harris",
+      "type": "Under",
+      "line": 16.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Cade Cunningham",
+      "type": "Over",
+      "line": 24.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Under",
+      "line": 13.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Julius Randle",
+      "type": "Under",
+      "line": 18.5,
+      "odds": -108,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Under",
+      "line": 12.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Under",
+      "line": 12.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "LeBron James",
+      "type": "Over",
+      "line": 24.5,
+      "odds": -106,
+      "half": "half"
+    },
+    {
+      "name": "Austin Reaves",
+      "type": "Over",
+      "line": 15.5,
+      "odds": -2,
+      "half": "half"
+    }
+  ],
+  "Rebs+Asts": [
+    {
+      "name": "D'Angelo Russell",
+      "type": "Under",
+      "line": 8.5,
+      "odds": -129,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Over",
+      "line": 8.5,
+      "odds": -127,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 12.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Over",
+      "line": 9.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Austin Reaves",
+      "type": "Over",
+      "line": 8.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 14.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Over",
+      "line": 9.5,
+      "odds": -116,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Over",
+      "line": 10.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Under",
+      "line": 10.5,
+      "odds": -115,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Under",
+      "line": 9.5,
+      "odds": -112,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 14.5,
+      "odds": -111,
+      "half": "half"
+    },
+    {
+      "name": "Austin Reaves",
+      "type": "Under",
+      "line": 8.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Under",
+      "line": 9.5,
+      "odds": -109,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 12.5,
+      "odds": -14,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Under",
+      "line": 8.5,
+      "odds": -8,
+      "half": "half"
+    },
+    {
+      "name": "D'Angelo Russell",
+      "type": "Over",
+      "line": 8.5,
+      "odds": 60,
+      "half": "half"
+    }
+  ],
+  "Pts+Asts": [
+    {
+      "name": "Mikal Bridges",
+      "type": "Under",
+      "line": 18.5,
+      "odds": -127,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Under",
+      "line": 19.5,
+      "odds": -123,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Over",
+      "line": 23.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Under",
+      "line": 13.5,
+      "odds": -122,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Under",
+      "line": 34.5,
+      "odds": -121,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Under",
+      "line": 32.5,
+      "odds": -119,
+      "half": "half"
+    },
+    {
+      "name": "Mike Conley",
+      "type": "Over",
+      "line": 15.5,
+      "odds": -118,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Over",
+      "line": 26.5,
+      "odds": -117,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Over",
+      "line": 17.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Jrue Holiday",
+      "type": "Under",
+      "line": 17.5,
+      "odds": -114,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Over",
+      "line": 33.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Anthony Edwards",
+      "type": "Under",
+      "line": 33.5,
+      "odds": -113,
+      "half": "half"
+    },
+    {
+      "name": "Jaylen Brown",
+      "type": "Under",
+      "line": 26.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Jayson Tatum",
+      "type": "Over",
+      "line": 32.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Mike Conley",
+      "type": "Under",
+      "line": 15.5,
+      "odds": -110,
+      "half": "half"
+    },
+    {
+      "name": "Jalen Brunson",
+      "type": "Over",
+      "line": 34.5,
+      "odds": -108,
+      "half": "half"
+    },
+    {
+      "name": "Karl-Anthony Towns",
+      "type": "Under",
+      "line": 23.5,
+      "odds": -107,
+      "half": "half"
+    },
+    {
+      "name": "Josh Hart",
+      "type": "Over",
+      "line": 13.5,
+      "odds": -104,
+      "half": "half"
+    },
+    {
+      "name": "Derrick White",
+      "type": "Over",
+      "line": 19.5,
+      "odds": -104,
+      "half": "half"
+    },
+    {
+      "name": "Mikal Bridges",
+      "type": "Over",
+      "line": 18.5,
+      "odds": 31,
+      "half": "half"
+    }
+  ],
+  "3-PT Made": [
+    {
+      "name": "Jaden Ivey",
+      "type": "Over",
+      "line": 1.5,
+      "odds": -127,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Over",
+      "line": 1.5,
+      "odds": -125,
+      "half": "half"
+    },
+    {
+      "name": "OG Anunoby",
+      "type": "Under",
+      "line": 1.5,
+      "odds": 24,
+      "half": "half"
+    },
+    {
+      "name": "Jaden Ivey",
+      "type": "Under",
+      "line": 1.5,
+      "odds": 43,
+      "half": "half"
+    }
+  ]
+}
