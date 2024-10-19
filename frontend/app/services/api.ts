@@ -4,8 +4,8 @@ const API_BASE_URL = 'http://localhost:8000';  // Adjust this to your Django ser
 
 export const fetchProps = async () => {
   try {
-    console.log('Fetching props from:', `${API_BASE_URL}/api/wnba-props/`);
-    const response = await axios.get(`${API_BASE_URL}/api/wnba-props/`);
+    console.log('Fetching props from:', `${API_BASE_URL}/api/nba-props/`);
+    const response = await axios.get(`${API_BASE_URL}/api/nba-props/`);
     console.log('Response received:', response.data);
     return response.data;
   } catch (error) {

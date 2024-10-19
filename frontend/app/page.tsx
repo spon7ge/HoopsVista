@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Tabs from './components/Tabs';
-import PredictionsDisplay from './components/PredictionsDisplay';
+import PlayersDisplay from './components/PlayersDisplay';
 import { fetchProps } from './services/api';
 
 interface Prop {
@@ -39,6 +39,8 @@ export default function Home() {
     loadProps();
   }, []);
 
+
+
   const filteredProps = props[selectedTab]?.filter(prop => 
     prop.name.toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
@@ -59,7 +61,7 @@ export default function Home() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <PredictionsDisplay predictions={filteredProps} />
+            <PlayersDisplay players={filteredProps} />
           )}
         </div>
       </div>
