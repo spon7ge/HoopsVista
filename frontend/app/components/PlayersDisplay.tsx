@@ -67,7 +67,9 @@ const PlayersDisplay: React.FC<PlayersDisplayProps> = ({ players }) => {
                     <div className="mt-3 flex justify-between text-sm text-gray-400">
                         <div className="flex flex-col items-center">
                             <span>Proj.</span>
-                            <span className="font-bold text-white-400 text-lg">{player.projectionType}</span>
+                            <span className={`font-bold text-lg ${player.projectionType === 'OVER' ? 'text-green-400' : 'text-red-400'}`}>
+                                {player.projectionType}
+                            </span>
                         </div>
                         <div className="flex flex-col items-center">
                             <span>Cover Prob.</span>
