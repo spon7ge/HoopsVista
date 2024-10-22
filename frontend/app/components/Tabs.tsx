@@ -17,7 +17,11 @@ const Tabs: React.FC<TabsProps> = ({ selectedTab, onTabChange, searchTerm, onSea
     "Pts+Asts",
     "Pts+Rebs",
     "Rebs+Asts",
-    "Pts+Rebs+Asts"
+    "Pts+Rebs+Asts",
+    "Blocked Shots",
+    "Steals",
+    "Blks+Stls",
+    "Turnovers"
   ];
 
   return (
