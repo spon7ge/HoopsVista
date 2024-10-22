@@ -17,6 +17,8 @@ class ODDS_NBA_SCRAPER:
         self.ra = []
         self.blocks = []
         self.steals = []
+        self.to = []
+        self.bs = []
         self.collect_all_odds()
 
 
@@ -32,7 +34,8 @@ class ODDS_NBA_SCRAPER:
             self.ra.extend(self.get_odds(id, "player_rebounds_assists"))
             self.blocks.extend(self.get_odds(id, "player_blocks"))
             self.steals.extend(self.get_odds(id, "player_steals"))
-            
+            self.to.extend(self.get_odds(id, "player_turnovers"))
+            self.bs.extend(self.get_odds(id, "player_blocks_steals"))
 
     def gameIDs(self):
         url = f"{self.base_url}?apiKey={self.api_key}&regions=us&markets=h2h&oddsFormat=american"

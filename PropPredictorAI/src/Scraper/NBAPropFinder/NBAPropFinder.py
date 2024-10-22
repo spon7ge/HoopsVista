@@ -37,8 +37,8 @@ class NBAPropFinder():
         self.pr_map = self.data_condenser(self.nba_data.pr)
         self.pa_map = self.data_condenser(self.nba_data.pa)
         self.ra_map = self.data_condenser(self.nba_data.ra)
-        
-
+        self.bs_map = self.data_condenser(self.nba_data.bs)
+        self.to_map = self.data_condenser(self.nba_data.to)
     def data_condenser(self, data):
         ans = defaultdict(list)
         for prop in data:
@@ -67,6 +67,10 @@ class NBAPropFinder():
             return self.sieve("Pts+Asts", self.getPropsAverage(self.pa_map))
         elif category == "Rebs+Asts":
             return self.sieve("Rebs+Asts", self.getPropsAverage(self.ra_map))
+        elif category == "Blks+Stls":
+            return self.sieve("Blks+Stls", self.getPropsAverage(self.bs_map))
+        elif category == "Turnovers":
+            return self.sieve("Turnovers", self.getPropsAverage(self.to_map))
         else:
             pass
     
@@ -108,7 +112,7 @@ class NBAPropFinder():
     def getData(self):
         all_props = {}
         for category in self.categories:
-            if category in {"Points", "Rebounds", "Assists", "3-PT Made", "Blocked Shots", "Steals", "Pts+Rebs+Asts", "Pts+Rebs", "Pts+Asts", "Rebs+Asts"}:
+            if category in {"Points", "Rebounds", "Assists", "3-PT Made", "Blocked Shots", "Steals", "Pts+Rebs+Asts", "Pts+Rebs", "Pts+Asts", "Rebs+Asts", "Blks+Stls", "Turnovers"}:
                 props = self.getCategory(category)
                 all_props[category] = [
                     {"name": prop[0], "type": prop[1], "line": prop[2], "odds": prop[3], "half": prop[4]}
