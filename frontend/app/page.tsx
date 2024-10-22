@@ -55,6 +55,7 @@ export default function Home() {
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
         />
+        <hr className="border-t border-white-300 my-4 w-full" />
         <div className="mt-4">
           {isLoading ? (
             <p>Loading...</p>
