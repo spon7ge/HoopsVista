@@ -1,5 +1,6 @@
 ## Prop Betting Machine Learning Project
-<img width="1440" alt="Screenshot 2024-10-20 at 1 11 29 PM" src="https://github.com/user-attachments/assets/fece4f06-edb9-4621-a105-9e5a9d7c9216">
+<img width="1440" alt="Screenshot 2024-10-22 at 12 00 42 PM" src="https://github.com/user-attachments/assets/1ff2b1cf-6302-41af-85d7-b7030b5ce0ee">
+
 
 ### Overview
 ### This project is designed to predict player performance for prop betting using machine learning models. It pulls data from various sources, processes it, and then uses predictive algorithms to help identify potential prop bets with favorable odds.
