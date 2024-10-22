@@ -155,3 +155,9 @@ def add_BLK_features(player_data, player_id_col='PLAYER_ID', date_col='GAME_DATE
 
     return player_data
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+#Get days of rest in between games
+def calculate_days_of_rest(df, player_id_col='PLAYER_ID', game_date_col='GAME_DATE'):
+    df[game_date_col] = pd.to_datetime(df[game_date_col], format='%Y-%m-%d')
+    df = df.sort_values(by=[player_id_col, game_date_col])
+    df['DAYS_OF_REST'] = df.groupby(player_id_col)[game_date_col].diff().dt.days
+    return df
